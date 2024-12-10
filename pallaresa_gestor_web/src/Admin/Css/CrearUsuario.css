@@ -1,0 +1,100 @@
+/* Fondo */
+.modal-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #654ea3, #eaafc8);
+  }
+  
+  /* Caja del modal */
+  .modal-box {
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  /* Título */
+  .modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Campos de entrada */
+  .modal-input {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  /* Dropdown */
+  .dropdown-container {
+    text-align: left;
+    margin-bottom: 15px;
+  }
+  
+  .dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .dropdown-arrow {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+  }
+  
+  .dropdown-arrow.open {
+    transform: rotate(90deg); /* Rotar 90 grados para apuntar hacia abajo */
+  }
+  
+  .dropdown-options {
+    margin-top: 10px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Opciones del dropdown */
+  .dropdown-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+  
+  .dropdown-option input {
+    margin-right: 8px;
+  }
+  
+  /* Botón */
+  .modal-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #6c5ce7;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .modal-button:hover {
+    background-color: #4834d4;
+  }
+  
