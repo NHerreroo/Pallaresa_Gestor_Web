@@ -1,0 +1,31 @@
+
+
+const Login = () => { 
+    
+    
+    return (
+    <div style={{ maxWidth: '400px', margin: 'auto' }}>
+      <h2>Inicio de Sesión</h2>
+      <form>
+        <div>
+          <label>Email: </label>
+          <input id='campos'
+            type="email"
+            required
+          />
+        </div>
+        <div >
+          <label>Contraseña:  </label>
+          <input id='campos'
+            type="password"
+            required
+          />
+        </div>
+        <button class='init' type="submit">
+        Iniciar
+        </button>
+      </form>
+    
+    </div>
+  );
+};
