@@ -1,3 +1,4 @@
+import { Button } from "../Components/Js/Button";
 
 
 const Login = () => { 
@@ -20,13 +21,8 @@ const Login = () => {
           />
         </div>
         <p>¿Has olvidado la contraseña?</p>
-        <button class='init' type="submit">
-            Iniciar
-        </button>
-
-    
+        <Button class='init' type="submit" text="Iniciar"/>
     </div>
   );
 };
-
 export default Login;
