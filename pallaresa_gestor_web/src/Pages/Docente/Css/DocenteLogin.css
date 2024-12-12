@@ -1,0 +1,69 @@
+.Docente-login-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center; 
+  }
+  .App-logo {
+    height: auto;
+    width: 45%;
+    max-width: none;
+    max-height: none;
+    object-fit: contain; 
+  }
+  .LoginC {
+    flex-grow: 1;  
+    height: 100%;  
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(112.28% 141.01% at -4.8% 5.65%, #DA69E4 0%, #5860BB 100%);
+    color: white;
+    box-shadow: -4px 0px 10px 1px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+  }
+  
+  #campos {
+    width: 90%;
+    height: 40px;
+    border-radius: 8px;
+    background: #D9D9D9;
+    color: #A1A1A1;
+    border: none;
+    text-align: center;
+    font-size: 24px;
+    margin: 10px 0;
+  }
+  
+  .init {
+    width: 80%;
+    height: 40px;
+    border-radius: 20px;
+    background: #2D5D93;
+    color: rgba(255, 255, 255, 0.88);
+    font-weight: 700;
+    text-align: center;
+    margin-left: 10%;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-top: 10px;
+    transition: 0.3s;
+  }
+  
+  .init:hover {
+    background: #5880AE;
+  }
+  
+  .Login p {
+    font-size: 0.9rem;
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+  }
+  
+  .Login p:hover {
+    text-decoration: underline;
+  }
