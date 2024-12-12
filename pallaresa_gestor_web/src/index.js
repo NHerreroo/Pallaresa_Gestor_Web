@@ -10,8 +10,7 @@ import DocenteLogin from './Pages/Docente/JS/DocenteLogin';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  //<App />
-  <DocenteLogin/>
+  <App />
 );
 
 reportWebVitals();
