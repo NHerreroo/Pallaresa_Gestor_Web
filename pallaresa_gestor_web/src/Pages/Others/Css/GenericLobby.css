@@ -9,7 +9,7 @@
 
 }
 
-.SelectionContainer{
+.SelectionContainer {
     width: 302px;
     height: 521px;
     flex-shrink: 0;
@@ -18,11 +18,31 @@
     background: #D9D9D9;
 
     padding: 50px;
+   
+
+    /* Centrado con Flexbox */
+    display: flex;
+    flex-direction: column; /* Alineación vertical de los hijos */
+    align-items: center;   /* Centrar horizontalmente */
+    justify-content: center; /* Centrar verticalmente */
+    
 }
 
 
+.logo{
+    height: auto;
+    width: 75%;
+    max-width: none;
+    max-height: none;
+    object-fit: contain; 
 
+}
 
+.GenericLobbyButtons {
+    display: flex; /* Si necesitas alinear botones horizontalmente */
+    flex-direction: column; /* Alinear botones verticalmente */
+    justify-content: center;
 
-
-
+    width: 100%; /* Se ajusta al ancho del contenedor padre */
+    gap: 10px; /* Espaciado entre botones */
+}

@@ -16,7 +16,8 @@ root.render(
   //<App />
   //<CrearUsuario/>
   //<ModalRol/>
-  <EditarUsuario/>
+  
+  <GenericLobby></GenericLobby>
 );
 
 reportWebVitals();
