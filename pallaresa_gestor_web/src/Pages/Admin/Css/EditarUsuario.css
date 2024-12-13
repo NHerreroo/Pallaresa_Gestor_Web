@@ -5,7 +5,6 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(135deg, #654ea3, #eaafc8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,10 +64,15 @@
     width: 95%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
+    background-color: #A1A1A1;
   }
+
+  .usuario-input::placeholder {
+    color:#292929 ;
+  }
+
   
   /* Botón guardar */
   .usuario-button {

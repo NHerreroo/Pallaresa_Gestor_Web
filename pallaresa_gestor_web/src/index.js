@@ -9,11 +9,13 @@ import EditarUsuario from './Pages/Admin/JS/EditarUsuario';
 
 import { GenericLobby } from './Pages/Others/Js/GenericLobby';
 import DocenteLogin from './Pages/Docente/JS/DocenteLogin';
+import ImplementarArchivo from './Pages/Admin/JS/ImplementarArchivo';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <App />
+  //<App />
+<ImplementarArchivo/>
 );
 
 reportWebVitals();

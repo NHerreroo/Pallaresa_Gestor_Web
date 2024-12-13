@@ -1,42 +1,47 @@
-/* Fondo */
+/* fondo */
 .modal-container {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
   }
   
-  /* Estilo del modal */
+
   .modal-box {
-    width: 300px;
+    width: 350px;
     padding: 20px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
+    animation: fadeIn 0.3s ease-in-out;
   }
   
-  /* Título */
+  /* titulo */
   .modal-title {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 20px;
   }
   
-  /* Campos de entrada */
+  /* */
   .modal-input {
     width: 90%;
-    padding: 12px;
+    padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
   }
   
-  /* Boton */
+  /* boton */
   .modal-button {
-    width: 100%;
+    width: 97%;
     padding: 10px;
     background-color: #6c5ce7;
     color: white;
@@ -51,4 +56,5 @@
   .modal-button:hover {
     background-color: #4834d4;
   }
+  
   
