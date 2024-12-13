@@ -1,3 +1,4 @@
+import { ButtonComp } from "./ButtonComp";
 
 
 const Login = () => { 
@@ -20,11 +21,7 @@ const Login = () => {
           />
         </div>
         <p>¿Has olvidado la contraseña?</p>
-        <button class='init' type="submit">
-            Iniciar
-        </button>
-
-    
+        <ButtonComp text="Iniciar"></ButtonComp>
     </div>
   );
 };
