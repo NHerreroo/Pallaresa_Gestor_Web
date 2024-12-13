@@ -1,0 +1,13 @@
+.FolderB{
+    flex-shrink: 0;
+    background: none;
+    transition: 0.3s;
+    border: none;
+  }
+  
+  .FolderB:hover {
+    background: #7d52d3;
+  }
+  .FolderB:active {
+    background: #facef0;
+  }
