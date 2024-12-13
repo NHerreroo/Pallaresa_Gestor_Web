@@ -2,6 +2,7 @@ import React from 'react';
 import '../Css/DocenteLogin.css';
 import logo from '../../../componentes/Logo.png'; 
 import Login from '../../../componentes/JS/Login.js'
+import { PlusButton } from '../../../componentes/JS/PlusButton.js';
 
 const DocenteLogin = () => {
   return (
@@ -9,6 +10,7 @@ const DocenteLogin = () => {
       <img src={logo} className="App-logo" alt="logoa" />
       <div className="LoginC">
             <Login/>
+          
       </div>
     </div>
   );
