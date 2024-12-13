@@ -1,0 +1,89 @@
+/* Fondo */
+.overlay-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #654ea3, #eaafc8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* Caja principal */
+  .editar-usuario-box {
+    width: 400px;
+    padding: 20px;
+    background-color: #d3d3d3;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+  
+
+  .usuario-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Avatar/Foto */
+  .usuario-avatar {
+    width: 70px;
+    height: 70px;
+    background-color: #c1c1c1;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  
+  /* Información del usuario */
+  .usuario-info {
+    text-align: left;
+  }
+  
+  .usuario-nombre {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .usuario-email {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+  }
+  
+  /* Info */
+  .usuario-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .usuario-input {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  /* Botón guardar */
+  .usuario-button {
+    padding: 10px;
+    background-color: #6c5ce7;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .usuario-button:hover {
+    background-color: #4834d4;
+  }
+  
