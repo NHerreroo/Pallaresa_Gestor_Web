@@ -1,0 +1,14 @@
+.UserB{
+    flex-shrink: 0;
+    background: none;
+    transition: 0.3s;
+    border: none;
+  }
+  
+  .UserB:hover {
+    background: #7d52d3;
+  }
+  .UserB:active {
+    background: #facef0;
+  }
+ 
