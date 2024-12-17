@@ -1,20 +1,25 @@
 import React from "react";
-import "../Css/ModalRol.css";
+import "../Css/ImplementarArchivo.css";
 
-export const ModalRol = () => {
+export const ImplementarArchivo = () => {
   return (
     <div className="modal-container">
       <div className="modal-box">
-        <h2 className="modal-title">NUEVO ROL</h2>
+        <h2 className="modal-title">NUEVO ENLACE</h2>
         <form className="modal-form">
           <input
             type="text"
-            placeholder="Nombre del rol..."
+            placeholder="Nombre del enlace..."
             className="modal-input"
           />
           <input
             type="text"
-            placeholder="Permisos..."
+            placeholder="Enlace al documento ..."
+            className="modal-input"
+          />
+          <input
+            type="text"
+            placeholder="Roles..."
             className="modal-input"
           />
           <button type="submit" className="modal-button">
@@ -26,4 +31,4 @@ export const ModalRol = () => {
   );
 };
 
-export default ModalRol;
+export default ImplementarArchivo;
