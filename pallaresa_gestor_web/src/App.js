@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import DocenteLogin from './Pages/Docente/JS/DocenteLogin';
 import { GenericLobby } from './Pages/Others/Js/GenericLobby';
+import { AdminLogin } from './Pages/Admin/JS/AdminLogind';
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<GenericLobby />} />
           <Route path="/docente" element={<DocenteLogin />} />
+          <Route path="/admin" element={<AdminLogin />} />
         </Routes>
       </BrowserRouter>
     </div>
