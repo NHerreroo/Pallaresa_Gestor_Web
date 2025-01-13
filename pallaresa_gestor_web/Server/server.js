@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const pool = require("./database");
 
 const app = express();
 
@@ -11,4 +12,7 @@ app.get("/adduser", (req,res) =>{
     res.send("Response Received" + req.body);
 });
 
-app.listen(4000, () => console.log("Server on localhost:4000"))
+app.listen(4000, () => console.log("Server on 192.168.1.144"))
+
+
+ // Importa la conexión de la base de datos
