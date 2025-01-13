@@ -12,7 +12,7 @@ const DocenteLogin = () => {
       <img src={logo} className="App-logo" alt="logoa" />
       <div className="LoginC">
             <Login/>
-            <UserButton/>
+            
       </div>
     </div>
   );
