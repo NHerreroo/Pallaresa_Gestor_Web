@@ -1,0 +1,32 @@
+.Barra{
+    width: 373px;
+    height: 1010px;
+    flex-shrink: 0;
+    background: linear-gradient(170deg, #B2B0F2 0.96%, #8F72CE 92.31%);
+    position: relative;
+    margin: 0 auto;
+    align-items: center;
+   
+}
+
+.cajaRuta{
+   padding-top: 20%;
+}
+
+.rutas{
+    cursor: pointer;
+    color: #e9e9e9;
+    padding-left: 5%;
+    text-align: start;
+    font-family: "Open Sans";
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    border-bottom: 1px solid;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+.rutas:hover{
+    text-decoration: underline;
+    
+}
