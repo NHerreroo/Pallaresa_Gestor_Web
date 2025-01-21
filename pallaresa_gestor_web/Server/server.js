@@ -7,6 +7,32 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+
+// Autenticar usuario y verificar rol de administrador
+app.post("/login", async (req, res) => {
+    const { correo, contraseña } = req.body;
+    try {
+        const userQuery = `
+            SELECT p.nombre, pr.nombre_rol 
+            FROM personas p
+            JOIN persona_rol pr ON p.correo = pr.correo_persona
+            WHERE p.correo = $1 AND p.contraseña = $2 AND pr.nombre_rol = 'Administrador'
+        `;
+        const result = await pool.query(userQuery, [correo, contraseña]);
+
+        if (result.rows.length > 0) {
+            res.status(200).json({ success: true, nombre: result.rows[0].nombre });
+        } else {
+            res.status(401).json({ success: false, message: "Credenciales incorrectas o no tiene rol de administrador" });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error al iniciar sesión");
+    }
+});
+
+
+
 // CRUD Usuarios
 app.post("/usuarios", async (req, res) => {
     const { correo, nombre, contraseña } = req.body;
