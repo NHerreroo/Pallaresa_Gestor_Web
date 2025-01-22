@@ -23,13 +23,15 @@
   .BotonU{
     position: absolute; 
     top: 0;
-    right: 0;
-    visibility: hidden;
+    right: 20px;
+    visibility: visible;
   }
   .BotonF{
     position: absolute; 
     top: 0;
-    right: 0;
-    visibility: visible;
+    right: 20px;
+    visibility: hidden;
   }
+
+  
   
