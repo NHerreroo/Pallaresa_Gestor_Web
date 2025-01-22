@@ -1,9 +1,7 @@
 import React from 'react';
 import '../Css/AdminLogin.css';
 import logo from '../../../componentes/Logo.png'; 
-import { LeftBar } from '../../../componentes/JS/LeftBar.js';
-import { TopBar } from '../../../componentes/JS/TopBar.js';
-
+import { ButtonComp } from '../../../componentes/JS/ButtonComp';
 
 export const AdminLogin = () => {
   return (
@@ -12,10 +10,8 @@ export const AdminLogin = () => {
         <img src={logo} alt="Logo" className='admin-login-logo' />
         <input type="email" placeholder="Enter email" className='admin-login-input' />
         <input type="password" placeholder="Enter password" className='admin-login-input' />
-        <button className='admin-login-button'>Login</button>
+        <ButtonComp className='admin-login-button' text={"Admin"} route={"/admin/folder"} >Login</ButtonComp>
         <div><br/><br/><br/><br/></div>
-        <LeftBar/>
-        <TopBar/>
       </div>
     </div>
   );

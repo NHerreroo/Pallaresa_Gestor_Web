@@ -1,0 +1,25 @@
+.group{
+    position: fixed; 
+    top: 10px;
+    left: 30px;
+    display: flex;           
+    align-items: flex-start; 
+    justify-content: flex-start; 
+}
+
+.Icono img {
+    width: 40px; 
+    height: auto; 
+  }
+
+.texto{
+    color: aliceblue;
+    font-size: medium;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.texto:hover{
+    text-decoration: underline;
+
+}

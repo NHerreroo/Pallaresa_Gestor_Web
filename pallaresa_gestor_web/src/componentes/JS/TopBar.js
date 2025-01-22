@@ -2,6 +2,7 @@ import React from 'react';
 import '../Css/TopBar.css';
 import {UserButton} from '../JS/UserButton.js';
 import {FolderButton} from '../JS/FolderButton.js';
+import {User_IconButton} from '../JS/User_Icon.js';
 
 export const TopBar = () => {
   return (
