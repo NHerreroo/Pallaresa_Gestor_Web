@@ -1,12 +1,12 @@
 .Barra{
     width: 373px;
-    height: 1010px;
+    height: 100vh;
     flex-shrink: 0;
     background: linear-gradient(170deg, #B2B0F2 0.96%, #8F72CE 92.31%);
-    position: relative;
-    margin: 0 auto;
+    position: fixed;
+    left: 0;
+    top: 65px;
     align-items: center;
-   
 }
 
 .cajaRuta{

@@ -1,7 +1,8 @@
 import React from 'react';
 import '../Css/AdminLogin.css';
-import logo from '../../../componentes/Logo.png'; // Asegúrate de importar tu logo aquí
+import logo from '../../../componentes/Logo.png'; 
 import { LeftBar } from '../../../componentes/JS/LeftBar.js';
+import { TopBar } from '../../../componentes/JS/TopBar.js';
 
 
 export const AdminLogin = () => {
@@ -14,6 +15,7 @@ export const AdminLogin = () => {
         <button className='admin-login-button'>Login</button>
         <div><br/><br/><br/><br/></div>
         <LeftBar/>
+        <TopBar/>
       </div>
     </div>
   );

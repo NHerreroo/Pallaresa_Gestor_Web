@@ -16,7 +16,6 @@ export const LeftBar = () => {
         <div class="rutas">Texto</div>
         <div class="rutas">Texto</div>
         </div>
-        <PlusButton/>
        
    </div>
   );
