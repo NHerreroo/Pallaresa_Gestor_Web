@@ -2,49 +2,88 @@
   display: flex;
   width: 100%;
   height: 100vh;
+  justify-content: center; /* Centrado de LoginC en el contenedor */
+  align-items: center;
+  gap: 20%;
+}
+
+.App-logo {
+  height: auto;
+  width: 45%;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+}
+
+.LoginC {
+  flex-grow: 0; /* Impide que crezca más de lo necesario */
+  padding: 20px;
+  background: radial-gradient(112.28% 141.01% at -4.8% 5.65%, #DA69E4 0%, #5860BB 100%);
+  color: white;
+  box-shadow: -4px 0px 10px 1px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center; 
-  }
-  .App-logo {
-    height: auto;
-    width: 45%;
-    max-width: none;
-    max-height: none;
-    object-fit: contain; 
-  }
-  .LoginC {
-    flex-grow: 1;  
-    height: 100%;  
-    flex-shrink: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: radial-gradient(112.28% 141.01% at -4.8% 5.65%, #DA69E4 0%, #5860BB 100%);
-    color: white;
-    box-shadow: -4px 0px 10px 1px rgba(0, 0, 0, 0.25);
-    padding: 20px;
-  }
-  
-  #campos {
-    width: 100%;
-    height: 40px;
-    border-radius: 8px;
-    background: #D9D9D9;
-    color: #A1A1A1;
-    border: none;
-    text-align: center;
-    font-size: 24px;
-    margin: 10px 0;
-  }
-  
-  
-  .Login p {
-    font-size: 0.9rem;
-    margin-top: 10px;
-    color: rgba(255, 255, 255, 0.7);
-    cursor: pointer;
-  }
-  
-  .Login p:hover {
-    text-decoration: underline;
-  }
+  align-items: center;
+  min-height: 100vh;
+  max-width: 40%; /* Limita el ancho máximo */
+  width: 100%; /* Mantén la opción responsive */
+}
+
+.docente-login-input {
+  width: 100%; /* Ahora usa el 100% de su contenedor (LoginC) */
+  max-width: 300px; /* Ajusta el ancho máximo */
+  height: 40px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  padding-left: 10px;
+  font-size: 16px;
+  box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.docente-login-input::placeholder {
+  color: #aaa;
+}
+
+#campos {
+  width: 100%; /* 100% del contenedor, con max-width */
+  max-width: 300px;
+  height: 40px;
+  border-radius: 8px;
+  background: #D9D9D9;
+  color: #A1A1A1;
+  border: none;
+  text-align: center;
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.Login p {
+  font-size: 0.9rem;
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+}
+
+.Login p:hover {
+  text-decoration: underline;
+}
+
+.docente-login-button {
+  width: 100%; /* Usa el 100% del contenedor */
+  max-width: 300px; /* Ajusta el ancho máximo */
+  height: 50px;
+  background-color: #5A4FE9;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.docente-login-button:hover {
+  background-color: #4738C9;
+}
