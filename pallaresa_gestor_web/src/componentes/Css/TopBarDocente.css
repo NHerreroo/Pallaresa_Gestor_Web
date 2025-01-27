@@ -1,0 +1,25 @@
+.TBarra {
+    width: 100vw;
+    height: 65px;
+    background: linear-gradient(100.5deg, #DA69E4, #53599C);
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex; 
+    align-items: center; 
+  }
+  
+  .Trutas {
+    cursor: pointer;
+    color: #e9e9e9;
+    font-family: "Open Sans";
+    font-size: 30px;
+  }
+  
+  .Trutas:hover {
+    text-decoration: underline;
+  }
+
+
+  
+  

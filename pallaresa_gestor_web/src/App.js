@@ -5,6 +5,7 @@ import DocenteLogin from './Pages/Docente/JS/DocenteLogin';
 import { GenericLobby } from './Pages/Others/Js/GenericLobby';
 import { AdminLogin } from './Pages/Admin/JS/AdminLogind';
 import { AdminFolderScreen } from './Pages/Admin/JS/AdminFolderScreen';
+import { DocenteFolderScreen } from './Pages/Docente/JS/DocenteFolderScreen';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/docente" element={<DocenteLogin />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/folder" element={<AdminFolderScreen />} />
+          <Route path="/docente/folder" element={<DocenteFolderScreen />} />
         </Routes>
       </BrowserRouter>
     </div>
