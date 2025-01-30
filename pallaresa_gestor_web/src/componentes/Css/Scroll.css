@@ -1,66 +1,44 @@
 /* Contenedor con scroll */
 .scroll-container {
-    width: 300px;  
-    height: 400px; 
-    overflow-y: auto;
-    border: 2px solid #ccc;
-    padding: 10px;
-    background-color: #f4f4f4;
-    border-radius: 10px;
+  width: 300px;
+  height: 400px;
+  overflow-y: auto;
+  border: 2px solid #ccc;
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
 }
 
-  
-  /* Scroll personalizado */
-  .scroll-container::-webkit-scrollbar {
-    width: 10px;
-  }
-  
-  .scroll-container::-webkit-scrollbar-track {
-    background: #d3d3d3;
-    border-radius: 5px;
-  }
-  
-  .scroll-container::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 5px;
-  }
-  
-  .scroll-container::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-  
-  /* Contenido */
-  .scroll-content {
-    font-size: 16px;
-    color: #333;
-    line-height: 1.5;
-  }
-  
-  /* Botones */
-  .scroll-buttons {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-  }
-  
-  .scroll-buttons button {
-    padding: 10px 15px;
-    background-color: #6c5ce7;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .scroll-buttons button:hover {
-    background-color: #4834d4;
-  }
-  
-  /* Información de scroll */
-  .scroll-info {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #555;
-  }
-  
+/* Scroll personalizado */
+.scroll-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: #d3d3d3;
+  border-radius: 5px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Botones */
+.scroll-buttons {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+/* Información de scroll */
+.scroll-info {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}

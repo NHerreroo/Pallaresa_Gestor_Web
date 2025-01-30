@@ -28,7 +28,7 @@ const ScrollOverlay = () => {
 
     return (
         <div className="scroll-overlay">
-            <div className="scroll-container" ref={scrollContainerRef}>
+            <div className="scroll-container" ref={scrollContainerRef} style={{ width: '300px', height: '400px', overflowY: 'auto', border: '2px solid #ccc', padding: '10px', backgroundColor: '#f4f4f4', borderRadius: '10px' }}>
                 <p>Contenido de ejemplo 1</p>
                 <p>Contenido de ejemplo 2</p>
                 <p>Contenido de ejemplo 3</p>
@@ -39,8 +39,18 @@ const ScrollOverlay = () => {
                 <p>Contenido de ejemplo 8</p>
                 <p>Contenido de ejemplo 9</p>
                 <p>Contenido de ejemplo 10</p>
+                <p>Contenido de ejemplo 11</p>
+                <p>Contenido de ejemplo 12</p>
+                <p>Contenido de ejemplo 13</p>
+                <p>Contenido de ejemplo 14</p>
+                <p>Contenido de ejemplo 15</p>
+                <p>Contenido de ejemplo 16</p>
+                <p>Contenido de ejemplo 17</p>
+                <p>Contenido de ejemplo 18</p>
+                <p>Contenido de ejemplo 19</p>
+                <p>Contenido de ejemplo 20</p>
             </div>
-           
+            
         </div>
     );
 };
