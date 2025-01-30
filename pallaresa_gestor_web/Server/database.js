@@ -1,12 +1,16 @@
-const {Pool} = require("pg")
+const { Pool } = require('pg');
 
 const pool = new Pool({
     user: "postgres", 
     password: "usuario",
+<<<<<<< Updated upstream
     host: "192.168.0.47", //cabmiar por la de cada uno en local
+=======
+    host: "192.168.0.47", // Cambiar por la de cada uno en local
+>>>>>>> Stashed changes
     port: 5432,
     database: "pallaresa"
-})
+});
 
 pool.connect()
     .then(client => {
