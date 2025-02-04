@@ -17,7 +17,7 @@ root.render(
 
   //<CrearUsuario/>
   //<ModalRol/>
-  <PruebaUsuario/>
+  <App/>
 );
 
 reportWebVitals();
