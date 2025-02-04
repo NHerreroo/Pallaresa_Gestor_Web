@@ -50,7 +50,6 @@ const ScrollOverlay = () => {
                 <p>Contenido de ejemplo 19</p>
                 <p>Contenido de ejemplo 20</p>
             </div>
-            
         </div>
     );
 };
