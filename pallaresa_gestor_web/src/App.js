@@ -3,9 +3,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import DocenteLogin from './Pages/Docente/JS/DocenteLogin';
 import { GenericLobby } from './Pages/Others/Js/GenericLobby';
-import { AdminLogin } from './Pages/Admin/JS/AdminLogind';
+import { AdminLogin } from './Pages/Admin/JS/AdminLogin';
 import { AdminFolderScreen } from './Pages/Admin/JS/AdminFolderScreen';
 import { DocenteFolderScreen } from './Pages/Docente/JS/DocenteFolderScreen';
+import PruebaUsuario, {RegistrarUsuario } from './Pages/Admin/JS/PruebaUsuario';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/folder" element={<AdminFolderScreen />} />
           <Route path="/docente/folder" element={<DocenteFolderScreen />} />
+          <Route path='/registrar' element={<PruebaUsuario />} />
         </Routes>
       </BrowserRouter>
     </div>
