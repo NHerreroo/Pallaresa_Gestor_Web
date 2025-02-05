@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import DocenteLogin from './Pages/Docente/JS/DocenteLogin';
 import { GenericLobby } from './Pages/Others/Js/GenericLobby';
-import { AdminLogin } from './Pages/Admin/JS/AdminLogind';
+import  {AdminLogin} from './Pages/Admin/JS/AdminLogin';
 import PruebaUsuario from './Pages/Admin/JS/PruebaUsuario';
 
 
