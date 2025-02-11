@@ -1,129 +1,27 @@
-.container {
-    display: flex;
-    height: 100vh;
-    background-color: #f3f4f6;
-  }
-  
-  .sidebar {
-    width: 250px;
-    background: linear-gradient(to bottom, #6b46c1, #9f7aea);
-    color: white;
-    padding: 20px;
-  }
-  
-  .title {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .sidebar nav ul {
-    margin-top: 20px;
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar nav ul li {
-    padding: 10px 0;
-    cursor: pointer;
-  }
-  
-  .add-button {
-    width: 100%;
-    margin-top: 20px;
-    background-color: #553c9a;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .add-button svg {
-    margin-right: 8px;
-  }
-  
-  .main-content {
-    flex: 1;
-    padding: 20px;
-  }
-  
-  .header {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .search-bar {
-    display: flex;
-    align-items: center;
-    background-color: white;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .search-bar input {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 5px;
-  }
-  
-  .user-list {
-    margin-top: 20px;
-    background: white;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-  }
-  
-  .user-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px;
-    border-bottom: 1px solid #e2e8f0;
-  }
-  
-  .user-card:last-child {
-    border-bottom: none;
-  }
-  
-  .user-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .user-name {
-    font-weight: bold;
-  }
-  
-  .user-email {
-    font-size: 12px;
-    color: gray;
-  }
-  
-  .role-tag {
-    padding: 5px 10px;
-    border-radius: 12px;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-  }
-  
-  .role-director {
-    background-color: #f6ad55;
-  }
-  
-  .role-docente {
-    background-color: #9f7aea;
-  }
-  
-  .settings-icon {
-    cursor: pointer;
-    color: gray;
-  }
-  
+.buscar-usuario-container {
+  display: flex;
+}
+
+.buscar-usuario-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.buscar-usuario-content h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.user-list {
+  max-height: 500px;
+  overflow-y: auto;
+}

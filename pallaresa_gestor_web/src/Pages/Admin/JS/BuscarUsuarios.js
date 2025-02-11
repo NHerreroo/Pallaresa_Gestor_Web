@@ -1,56 +1,43 @@
-import { useState } from "react";
-import "./BuscarUsuarios.css";
-import { ButtonComp } from "../componentes/JS/ButtonComp";
+import React, { useState } from 'react';
+import {LeftBar} from '../../../componentes/JS/LeftBar.js'; 
+import UsuarioItem from '../JS/UsuarioItem.js'; 
+import '../Css/BuscarUsuarios.css';
 
-const users = [
-  { name: "Colomar Colomar", role: "DIRECTOR", email: "correo.correro@pallaresa.com", roleClass: "role-director" },
-  { name: "NOMBRE USUARIO", role: "DOCENTE", email: "correo.correro@pallaresa.com", roleClass: "role-docente" },
-  { name: "NOMBRE USUARIO", role: "DOCENTE", email: "correo.correro@pallaresa.com", roleClass: "role-docente" },
-];
+const BuscarUsuario = () => {
+  const [searchQuery, setSearchQuery] = useState('');
 
-export default function BuscarUsuarios() {
-  const [search, setSearch] = useState("");
+  const users = [
+    { name: 'Colomar Colomar', role: 'Director', email: 'correo.correo@pallaaerea.com' },
+    { name: 'NOMBRE USUARIO', role: 'Docente', email: 'correo.correo@pallaaerea.com' },
+    { name: 'NOMBRE USUARIO', role: 'Docente', email: 'correo.correo@pallaaerea.com' },
+    { name: 'NOMBRE USUARIO', role: 'Docente', email: 'correo.correo@pallaaerea.com' }
+  ];
+
+  const filteredUsers = users.filter(user =>
+    user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
-    <div className="container">
-      <aside className="sidebar">
-        <h2 className="title">TODOS LOS USUARIOS</h2>
-        <nav>
-          <ul>
-            <li>ROL 1</li>
-            <li>ROL 2</li>
-            <li>ROL 3</li>
-          </ul>
-        </nav>
-        <ButtonComp text="Agregar" route="/crear-usuario" />
-      </aside>
-      <main className="main-content">
-        <h1 className="header">ROLX/Buscar usuarios</h1>
-        <div className="search-bar">
-          <SearchIcon />
-          <input
-            type="text"
-            placeholder="Buscar usuarios"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
+    <div className="buscar-usuario-container">
+      <LeftBar />
+      <div className="buscar-usuario-content">
+        <h1>Buscar usuarios</h1>
+        <input
+          type="text"
+          className="search-bar"
+          placeholder="Buscar..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
         <div className="user-list">
-          {users.filter(user => user.name.toLowerCase().includes(search.toLowerCase())).map((user, index) => (
-            <div key={index} className="user-card">
-              <div className="user-info">
-                <UserIcon />
-                <div>
-                  <p className="user-name">{user.name}</p>
-                  <p className="user-email">{user.email}</p>
-                </div>
-              </div>
-              <span className={`role-tag ${user.roleClass}`}>{user.role}</span>
-              <SettingsIcon className="settings-icon" />
-            </div>
+          {filteredUsers.map((user, index) => (
+            <UsuarioItem key={index} name={user.name} role={user.role} email={user.email} />
           ))}
         </div>
-      </main>
+      </div>
     </div>
   );
-}
+};
+
+export default BuscarUsuario;
