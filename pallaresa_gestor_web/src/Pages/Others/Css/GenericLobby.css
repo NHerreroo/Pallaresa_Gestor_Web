@@ -42,7 +42,8 @@
     display: flex; /* Si necesitas alinear botones horizontalmente */
     flex-direction: column; /* Alinear botones verticalmente */
     justify-content: center;
-
+    align-items: center;
+    justify-content: center;
     width: 100%; /* Se ajusta al ancho del contenedor padre */
     gap: 10px; /* Espaciado entre botones */
 }
