@@ -2,17 +2,20 @@ import React, { useState } from 'react';
 import '../Css/DocenteLogin.css';
 import logo from '../../../componentes/Logo.png'; 
 import axios from 'axios';
+import { useUser } from '../../../context/UserContext';
 
 const DocenteLogin = () => {
   const [correo, setCorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [mensaje, setMensaje] = useState('');
+  const {setUser} = useUser();
 
   const handleLogin = async () => {
     try {
       const response = await axios.post("http://localhost:3001/docente", { correo, contraseña });
 
       setMensaje(`Bienvenido, ${response.data.nombre}`);
+      setUser(true);
     } catch (error) {
       setMensaje(error.response?.data?.message || "Error al iniciar sesión");
     }
