@@ -27,6 +27,7 @@ export const AdminLogin = () => {
     } catch (error) {
       setMensaje(error.response?.data?.message || "Error al iniciar sesión");
       console.error('Error:', error);
+      setAdmin(false)
     }
   };
 

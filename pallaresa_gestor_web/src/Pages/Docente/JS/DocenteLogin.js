@@ -12,12 +12,20 @@ const DocenteLogin = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://localhost:3001/docente", { correo, contraseña });
+      const response = await axios.post("http://localhost:3001/docente", {
+        correo: correo,
+        contraseña: contraseña
+        
+      });
 
-      setMensaje(`Bienvenido, ${response.data.nombre}`);
-      setUser(true);
+      if (response.data.message === "Login exitoso") {
+        setMensaje(`Bienvenido, inicio de sesión exitoso`);
+        setUser(true)
+      }
     } catch (error) {
       setMensaje(error.response?.data?.message || "Error al iniciar sesión");
+      console.error('Error:', error);
+      setUser(false)
     }
   };
 

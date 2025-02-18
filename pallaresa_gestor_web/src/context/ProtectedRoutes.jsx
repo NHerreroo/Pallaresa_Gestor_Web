@@ -9,7 +9,7 @@ const ProtectedRoutesAdmin=()=>{
 }
 
 const ProtectedRoutesDocente=()=>{
-    const user = useUser()
+    const {user} = useUser()
     return user ? <Outlet/> :  <Navigate to="/docente"/> 
 }
 
