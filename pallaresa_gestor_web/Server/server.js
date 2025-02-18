@@ -7,6 +7,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
+
+
+
 // Ruta de registro
 app.post('/api/register', async (req, res) => {
   const { correo, nombre, contraseña, rol } = req.body;
@@ -34,6 +38,12 @@ app.post('/api/register', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+
+
+
+
+
 
 // Una única ruta de login
 app.post("/login", async (req, res) => {
@@ -81,6 +91,12 @@ app.post("/login", async (req, res) => {
       res.status(500).json({ message: "Error del servidor", error: error.message });
   }
 });
+
+
+
+
+
+
 
 
 
@@ -134,6 +150,18 @@ app.post("/docente", async (req, res) => {
 });
 
 
+
+
+// Ruta para obtener todos los ficheros
+app.get("/docente/folder", async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM ficheros');
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error('Error al obtener los ficheros:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
 
 
 
