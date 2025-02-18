@@ -11,7 +11,6 @@ import { GenericLobby } from './Pages/Others/Js/GenericLobby';
 import DocenteLogin from './Pages/Docente/JS/DocenteLogin';
 import PruebaUsuario from './Pages/Admin/JS/PruebaUsuario.js';
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 

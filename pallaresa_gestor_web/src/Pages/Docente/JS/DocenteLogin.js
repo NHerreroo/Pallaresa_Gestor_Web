@@ -3,12 +3,14 @@ import '../Css/DocenteLogin.css';
 import logo from '../../../componentes/Logo.png'; 
 import axios from 'axios';
 import { useUser } from '../../../context/UserContext';
+import { useNavigate } from "react-router-dom";
 
 const DocenteLogin = () => {
   const [correo, setCorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [mensaje, setMensaje] = useState('');
   const {setUser} = useUser();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -21,6 +23,7 @@ const DocenteLogin = () => {
       if (response.data.message === "Login exitoso") {
         setMensaje(`Bienvenido, inicio de sesión exitoso`);
         setUser(true)
+        navigate("/docente/folder")
       }
     } catch (error) {
       setMensaje(error.response?.data?.message || "Error al iniciar sesión");
