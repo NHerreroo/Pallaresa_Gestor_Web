@@ -1,27 +1,139 @@
-.buscar-usuario-container {
-  display: flex;
+.search-container {
+  padding: 32px;
 }
 
-.buscar-usuario-content {
-  flex-grow: 1;
-  padding: 20px;
-}
-
-.buscar-usuario-content h1 {
+.search-title {
   font-size: 24px;
-  margin-bottom: 20px;
+  font-weight: bold;
+  margin-bottom: 24px;
 }
 
-.search-bar {
+.search-box {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+}
+
+.search-input {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 25px;
-  margin-bottom: 20px;
-  font-size: 16px;
+  height: 48px;
+  padding-left: 48px;
+  background-color: #f3f4f6;
+  border: none;
+  border-radius: 9999px;
+  font-size: 18px;
+  outline: none;
 }
 
-.user-list {
-  max-height: 500px;
+.users-container {
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  padding: 16px;
+  max-height: calc(100vh - 220px);
   overflow-y: auto;
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.user-card:last-child {
+  margin-bottom: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #e5e7eb;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.user-name {
+  font-weight: 500;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 14px;
+}
+
+.role-badge.director {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.role-badge.docente {
+  background-color: #f3e8ff;
+  color: #7e22ce;
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-email {
+  color: #6b7280;
+}
+
+.action-button {
+  padding: 8px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: #f3f4f6;
+}
+
+/* Estilo para el scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #B2B0F2;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8F72CE;
 }
