@@ -7,6 +7,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
+
+
+
 // Ruta de registro
 app.post('/api/register', async (req, res) => {
   const { correo, nombre, contraseña, rol } = req.body;
@@ -35,25 +39,27 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
+
+
+
+
+
+
 // Una única ruta de login
 app.post("/login", async (req, res) => {
   const { correo, contraseña } = req.body;
 
   try {
-      // Consulta modificada para ser más explícita
       const userQuery = `
           SELECT 
               p.correo,
               p.nombre,
-              p."contraseña",  -- Notar las comillas dobles para el campo con ñ
+              p."contraseña",
               pr.nombre_rol 
           FROM personas p
           LEFT JOIN persona_rol pr ON p.correo = pr.correo_persona
           WHERE p.correo = $1
       `;
-      
-      // Log para depuración
-      console.log('Intentando login con:', { correo, contraseñaLength: contraseña.length });
 
       const userResult = await pool.query(userQuery, [correo]);
 
@@ -62,27 +68,14 @@ app.post("/login", async (req, res) => {
       }
 
       const user = userResult.rows[0];
-      
-      // Log para depuración
-      console.log('Usuario encontrado:', {
-          correo: user.correo,
-          contraseñaAlmacenada: user.contraseña,
-          contraseñaIngresada: contraseña,
-          rol: user.nombre_rol
-      });
 
-      // Comparación directa de contraseñas
-      if (user.contraseña !== contraseña) {
-          return res.status(401).json({ 
-              message: "Contraseña incorrecta",
-              debug: {
-                  contraseñaAlmacenada: user.contraseña,
-                  contraseñaIngresada: contraseña
-              }
-          });
+      // Verifica la contraseña usando bcrypt.compare()
+      const passwordMatch = await bcrypt.compare(contraseña, user.contraseña);
+      if (!passwordMatch) {
+          return res.status(401).json({ message: "Contraseña incorrecta" });
       }
 
-      // Verifica el rol de administrador
+      // Verifica si el usuario es administrador
       if (user.nombre_rol !== 'Administrador') {
           return res.status(403).json({ message: "Acceso denegado: No eres administrador" });
       }
@@ -95,12 +88,82 @@ app.post("/login", async (req, res) => {
 
   } catch (error) {
       console.error('Error completo:', error);
-      res.status(500).json({ 
-          message: "Error del servidor",
-          error: error.message 
-      });
+      res.status(500).json({ message: "Error del servidor", error: error.message });
   }
 });
+
+
+
+
+
+
+
+
+
+app.post("/docente", async (req, res) => {
+  const { correo, contraseña } = req.body;
+  console.log("Intento de login:", correo);
+
+  try {
+      const userQuery = `
+          SELECT 
+              p.correo,
+              p.nombre,
+              p."contraseña"
+          FROM personas p
+          WHERE p.correo = $1
+      `;
+
+      const userResult = await pool.query(userQuery, [correo]);
+      console.log("Resultado de consulta:", userResult.rows);
+
+      if (userResult.rowCount === 0) {
+          console.log("Usuario no encontrado");
+          return res.status(404).json({ message: "Usuario no encontrado" });
+      }
+
+      const user = userResult.rows[0];
+
+      console.log("Contraseña ingresada:", contraseña);
+      console.log("Contraseña en BD:", user.contraseña);
+
+      // Comparar contraseña encriptada
+      const passwordMatch = await bcrypt.compare(contraseña, user.contraseña);
+      console.log("Coinciden las contraseñas?", passwordMatch);
+
+      if (!passwordMatch) {
+          console.log("Contraseña incorrecta");
+          return res.status(401).json({ message: "Contraseña incorrecta" });
+      }
+
+      console.log("Login exitoso");
+      res.status(200).json({ 
+          message: "Login exitoso",
+          nombre: user.nombre,
+          correo: user.correo
+      });
+
+  } catch (error) {
+      console.error('Error completo:', error);
+      res.status(500).json({ message: "Error del servidor", error: error.message });
+  }
+});
+
+
+
+
+// Ruta para obtener todos los ficheros
+app.get("/docente/folder", async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM ficheros');
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error('Error al obtener los ficheros:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 
 app.listen(3001, () => {
     console.log("Servidor escuchando en el puerto 3001");
