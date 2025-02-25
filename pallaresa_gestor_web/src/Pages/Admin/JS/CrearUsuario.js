@@ -9,7 +9,7 @@ const CrearUsuario = () => {
   };
 
   return (
-    <div className="modal-container">
+    <div className="modal-container-overlay">
       <div className="modal-box">
         <h2 className="modal-title">NUEVO USUARIO</h2>
         <form className="modal-form">
