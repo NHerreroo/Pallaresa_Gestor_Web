@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import {LeftBar} from '../../../componentes/JS/LeftBar.js'; 
+import TopBar from '../../../componentes/JS/TopBar.js'; // Importa el componente TopBar
+import { LeftBar } from '../../../componentes/JS/LeftBar.js'; // Importa el componente LeftBar
+import PlusButton from '../../../componentes/JS/PlusButton.js'; // Importa el componente PlusButton
 import UsuarioItem from '../JS/UsuarioItem.js'; 
 import '../Css/BuscarUsuarios.css';
-
-
 
 const BuscarUsuario = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -46,22 +46,21 @@ const BuscarUsuario = () => {
   );
 
   return (
-      <div className="search-container">
-        <h1 className="search-title">Buscar usuarios</h1>
-        
-        <div className="search-box">
-          <svg className="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <input 
-            className="search-input"
-            type="text"
-            placeholder="Buscar..."
-          />
+    <div className="main-container">
+      {/* TopBar */}
+      <TopBar onSearch={(query) => setSearchQuery(query)} />
+
+      {/* Contenedor principal */}
+      <div className="content-container">
+        {/* LeftBar y PlusButton */}
+        <div className="left-section">
+          <LeftBar />
+          <PlusButton /> {/* Agrega el botón circular aquí */}
         </div>
-  
+
+        {/* Contenido principal (lista de usuarios) */}
         <div className="users-container">
+          <h1 className="search-title">Buscar usuarios</h1>
           {users.map((user, index) => (
             <div key={index} className="user-card">
               <div className="user-info">
@@ -93,6 +92,7 @@ const BuscarUsuario = () => {
           ))}
         </div>
       </div>
+    </div>
   );
 };
 

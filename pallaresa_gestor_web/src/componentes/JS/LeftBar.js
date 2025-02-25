@@ -20,3 +20,4 @@ export const LeftBar = () => {
    </div>
   );
 };
+export default LeftBar;

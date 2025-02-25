@@ -10,3 +10,5 @@ export const PlusButton = () => {
     </button>
   );
 };
+
+export default PlusButton;
