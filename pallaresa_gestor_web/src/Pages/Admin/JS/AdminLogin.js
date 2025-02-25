@@ -3,13 +3,14 @@ import axios from 'axios';
 import '../Css/AdminLogin.css';
 import logo from '../../../componentes/Logo.png';
 import { useAdmin } from '../../../context/AdminContext';
-
+import { useNavigate } from "react-router-dom";
 
 export const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [mensaje, setMensaje] = useState('');
   const {setAdmin} = useAdmin();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,10 +24,12 @@ export const AdminLogin = () => {
       if (response.data.message === "Login exitoso") {
         setMensaje(`Bienvenido, inicio de sesión exitoso`);
         setAdmin(true)
+        navigate("/admin/folder")
       }
     } catch (error) {
       setMensaje(error.response?.data?.message || "Error al iniciar sesión");
       console.error('Error:', error);
+      setAdmin(false)
     }
   };
 

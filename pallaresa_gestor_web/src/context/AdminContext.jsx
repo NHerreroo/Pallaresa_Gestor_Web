@@ -4,10 +4,10 @@ import React, { createContext, useState, useContext } from "react";
 const AdminContext = createContext();
 
 export const AdminProvider = ({ children }) => {
-  const [Admin, setAdmin] = useState(false); // Estado global de Admin
+  const [admin, setAdmin] = useState(false); // Estado global de Admin
 
   return (
-    <AdminContext.Provider value={{ Admin, setAdmin }}>
+    <AdminContext.Provider value={{ admin, setAdmin }}>
       {children}
     </AdminContext.Provider>
   );

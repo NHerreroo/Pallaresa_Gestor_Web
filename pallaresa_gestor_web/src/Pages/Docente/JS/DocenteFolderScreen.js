@@ -1,45 +1,51 @@
-import '../Css/DocenteFolderScreen.css';
-import { LeftBar } from '../../../componentes/JS/LeftBar.js';
-import {TopBarDocente } from '../../../componentes/JS/TopBarDocente.js';
-import { User_IconButton } from '../../../componentes/JS/User_Icon.js';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+"use client"
+
+import { useEffect, useState } from "react"
+import axios from "axios"
+import { LeftBar } from "../../../componentes/JS/LeftBar.js"
+import { TopBarDocente } from "../../../componentes/JS/TopBarDocente.js"
+import { User_IconButton } from "../../../componentes/JS/User_Icon.js"
+import FileCard from "../../../componentes/JS/FileCard.tsx"
+import "../Css/DocenteFolderScreen.css"
 
 const DocenteFolderScreen = () => {
-  const [ficheros, setFicheros] = useState([]);
+  const [ficheros, setFicheros] = useState([])
 
   useEffect(() => {
     const fetchFicheros = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/docente/folder');
-        setFicheros(response.data);
+        const response = await axios.get("http://localhost:3001/docente/folder")
+        setFicheros(response.data)
       } catch (error) {
-        console.error('Error al obtener los ficheros:', error);
+        console.error("Error al obtener los ficheros:", error)
       }
-    };
+    }
 
-    fetchFicheros();
-  }, []);
+    fetchFicheros()
+  }, [])
 
   return (
-    <div className='docenteFolder'>
-     <div className='docente-folder-container'>
-      <div className='item-list'>
-          <h1>Lista de Ficheros</h1>
-          <ul>
+    <div className="docente-folder">
+      <LeftBar />
+      <div className="docente-folder-main">
+        <TopBarDocente />
+        <div className="docente-folder-content">
+          <div className="file-grid">
             {ficheros.map((fichero) => (
-              <li key={fichero.nombre}>
-                <strong>{fichero.nombre}</strong> - {fichero.enlace} - {fichero.carpeta ? 'Carpeta' : 'Archivo'}
-              </li>
+              <FileCard
+                key={fichero.nombre}
+                nombre={fichero.nombre}
+                enlace={fichero.enlace}
+                esCarpeta={fichero.carpeta}
+              />
             ))}
-          </ul>
+          </div>
         </div>
       </div>
-      <LeftBar/>
-      <TopBarDocente/>
-      <User_IconButton/>
+      <User_IconButton />
     </div>
-  );
-};
+  )
+}
 
-export default DocenteFolderScreen;
+export default DocenteFolderScreen
+
