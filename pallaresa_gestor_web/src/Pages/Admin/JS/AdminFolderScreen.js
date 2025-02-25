@@ -4,6 +4,8 @@ import { LeftBar } from '../../../componentes/JS/LeftBar.js';
 import { TopBar } from '../../../componentes/JS/TopBar.js';
 import { User_IconButton } from '../../../componentes/JS/User_Icon.js';
 import { PlusButton } from '../../../componentes/JS/PlusButton.js';
+import { ImplementarArchivo } from './ImplementarArchivo.js';
+
 
 export const AdminFolderScreen = () => {
   return (
@@ -12,7 +14,7 @@ export const AdminFolderScreen = () => {
         <LeftBar/>
         <TopBar/>
         <User_IconButton/>
-        <PlusButton/>
+        <PlusButton PageComponent={ImplementarArchivo} />
     </div>
   );
 };
