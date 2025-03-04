@@ -13,21 +13,6 @@ import { ProtectedRoutesDocente, ProtectedRoutesAdmin } from './context/Protecte
 
 function App() {
 
-  const [correoUsuario, setCorreoUsuario] = useState(localStorage.getItem("correoUsuario"));
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      setCorreoUsuario(localStorage.getItem("correoUsuario"));
-    };
-
-    // Detectar cambios en localStorage
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
-
   return (
     <div className="App">
       <UserProvider>

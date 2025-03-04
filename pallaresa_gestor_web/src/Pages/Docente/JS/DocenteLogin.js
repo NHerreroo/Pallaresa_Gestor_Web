@@ -17,18 +17,21 @@ const DocenteLogin = () => {
       const response = await axios.post("http://localhost:3001/docente", {
         correo: correo,
         contraseña: contraseña
-        
       });
 
       if (response.data.message === "Login exitoso") {
         setMensaje(`Bienvenido, inicio de sesión exitoso`);
-        setUser(true)
-        navigate("/docente/folder")
+        setUser(true);
+        
+        // Guardar el correo en localStorage
+        localStorage.setItem("correoUsuario", correo);
+        
+        navigate("/docente/folder");
       }
     } catch (error) {
       setMensaje(error.response?.data?.message || "Error al iniciar sesión");
       console.error('Error:', error);
-      setUser(false)
+      setUser(false);
     }
   };
 
