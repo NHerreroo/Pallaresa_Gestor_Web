@@ -151,14 +151,26 @@ app.post("/docente", async (req, res) => {
 
 
 
-
-// Ruta para obtener todos los ficheros
 app.get("/docente/folder", async (req, res) => {
+  const { correo } = req.query; // Se recibe el correo del usuario logueado
+
+  if (!correo) {
+    return res.status(400).json({ error: "Correo de usuario requerido" });
+  }
+
   try {
-    const result = await pool.query('SELECT * FROM ficheros');
+    const query = `
+      SELECT ficheros.*
+      FROM ficheros
+      JOIN rol_fichero ON ficheros.nombre = rol_fichero.nombre_Fichero
+      JOIN persona_rol ON rol_fichero.nombre_Rol = persona_rol.nombre_Rol
+      WHERE persona_rol.correo_Persona = $1;
+    `;
+    const result = await pool.query(query, [correo]);
+
     res.status(200).json(result.rows);
   } catch (error) {
-    console.error('Error al obtener los ficheros:', error);
+    console.error("Error al obtener los ficheros:", error);
     res.status(500).json({ error: error.message });
   }
 });
