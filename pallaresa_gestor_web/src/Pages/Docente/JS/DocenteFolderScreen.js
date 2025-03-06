@@ -10,11 +10,22 @@ import "../Css/DocenteFolderScreen.css"
 
 const DocenteFolderScreen = () => {
   const [ficheros, setFicheros] = useState([])
+  const [correoUsuario, setCorreoUsuario] = useState(null)
+
+  useEffect(() => {
+    // Obtener el correo del usuario desde localStorage
+    const correoGuardado = localStorage.getItem("correoUsuario")
+    if (correoGuardado) {
+      setCorreoUsuario(correoGuardado)
+    }
+  }, [])
 
   useEffect(() => {
     const fetchFicheros = async () => {
+      if (!correoUsuario) return // Evita hacer la petición si no hay correo
+
       try {
-        const response = await axios.get("http://localhost:3001/docente/folder")
+        const response = await axios.get(`http://localhost:3001/docente/folder?correo=${correoUsuario}`)
         setFicheros(response.data)
       } catch (error) {
         console.error("Error al obtener los ficheros:", error)
@@ -22,7 +33,7 @@ const DocenteFolderScreen = () => {
     }
 
     fetchFicheros()
-  }, [])
+  }, [correoUsuario]) // Se ejecuta cuando el correoUsuario cambia
 
   return (
     <div className="docente-folder">
@@ -48,4 +59,3 @@ const DocenteFolderScreen = () => {
 }
 
 export default DocenteFolderScreen
-

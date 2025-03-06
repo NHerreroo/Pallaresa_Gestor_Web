@@ -6,15 +6,19 @@ import reportWebVitals from './reportWebVitals';
 import ModalRol from './Pages/Admin/JS/ModalRol';
 import CrearUsuario from './Pages/Admin/JS/CrearUsuario';
 import EditarUsuario from './Pages/Admin/JS/EditarUsuario';
+import Scroll from './componentes/JS/Scroll'
 
 import { GenericLobby } from './Pages/Others/Js/GenericLobby';
 import DocenteLogin from './Pages/Docente/JS/DocenteLogin';
-import PruebaUsuario from './Pages/Admin/JS/PruebaUsuario.js';
+import BuscarUsuario from './Pages/Admin/JS/BuscarUsuarios';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-
-  <App/>
+  
+    <BuscarUsuario/>
+  //<CrearUsuario/>
+  //<ModalRol/>
+  
 );
 
 reportWebVitals();
