@@ -29,3 +29,5 @@ export const PlusButton = ({ PageComponent }) => {
     </>
   );
 };
+
+export default PlusButton;

@@ -1,43 +1,20 @@
 import React, { useState } from 'react';
-import TopBar from '../../../componentes/JS/TopBar.js'; // Importa el componente TopBar
-import { LeftBar } from '../../../componentes/JS/LeftBar.js'; // Importa el componente LeftBar
-import PlusButton from '../../../componentes/JS/PlusButton.js'; // Importa el componente PlusButton
-import UsuarioItem from '../JS/UsuarioItem.js'; 
+import TopBar from '../../../componentes/JS/TopBar.js';
+import { LeftBar } from '../../../componentes/JS/LeftBar.js';
+import PlusButton from '../../../componentes/JS/PlusButton.js';
 import '../Css/BuscarUsuarios.css';
+import '../../../componentes/Css/LeftBar.css';
 
 const BuscarUsuario = () => {
   const [searchQuery, setSearchQuery] = useState('');
+
   const users = [
-    {
-      name: "Colomar Colomar",
-      role: "DIRECTOR",
-      email: "correo.correo@pallaerea.com"
-    },
-    {
-      name: "NOMBRE USUARIO",
-      role: "DOCENTE", 
-      email: "correo.correo@pallaerea.com"
-    },
-    {
-      name: "NOMBRE USUARIO",
-      role: "DOCENTE",
-      email: "correo.correo@pallaerea.com"
-    },
-    {
-      name: "NOMBRE USUARIO", 
-      role: "DOCENTE",
-      email: "correo.correo@pallaerea.com"
-    },
-    {
-      name: "NOMBRE USUARIO",
-      role: "DOCENTE", 
-      email: "correo.correo@pallaerea.com"
-    },
-    {
-      name: "NOMBRE USUARIO",
-      role: "DOCENTE",
-      email: "correo.correo@pallaerea.com"
-    }
+    { name: "Colomar Colomar", role: "DIRECTOR", email: "correo.correo@pallaerea.com" },
+    { name: "NOMBRE USUARIO", role: "DOCENTE", email: "correo.correo@pallaerea.com" },
+    { name: "NOMBRE USUARIO", role: "DOCENTE", email: "correo.correo@pallaerea.com" },
+    { name: "NOMBRE USUARIO", role: "DOCENTE", email: "correo.correo@pallaerea.com" },
+    { name: "NOMBRE USUARIO", role: "DOCENTE", email: "correo.correo@pallaerea.com" },
+    { name: "NOMBRE USUARIO", role: "DOCENTE", email: "correo.correo@pallaerea.com" }
   ];
 
   const filteredUsers = users.filter(user =>
@@ -45,23 +22,21 @@ const BuscarUsuario = () => {
     user.email.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const roles = ["ROL 1", "ROL 2", "ROL 3"];
+
   return (
     <div className="main-container">
-      {/* TopBar */}
-      <TopBar onSearch={(query) => setSearchQuery(query)} />
+      <TopBar onSearch={setSearchQuery} />
 
-      {/* Contenedor principal */}
       <div className="content-container">
-        {/* LeftBar y PlusButton */}
         <div className="left-section">
-          <LeftBar />
-          <PlusButton /> {/* Agrega el botón circular aquí */}
+          <LeftBar title="TODOS LOS USUARIOS" roles={roles} />
+          <PlusButton />
         </div>
 
-        {/* Contenido principal (lista de usuarios) */}
         <div className="users-container">
           <h1 className="search-title">Buscar usuarios</h1>
-          {users.map((user, index) => (
+          {filteredUsers.map((user, index) => (
             <div key={index} className="user-card">
               <div className="user-info">
                 <div className="user-avatar">
@@ -77,16 +52,10 @@ const BuscarUsuario = () => {
                   </span>
                 </div>
               </div>
-              
+
               <div className="user-actions">
                 <span className="user-email">{user.email}</span>
-                <button className="action-button">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </button>
+                <button className="action-button">...</button>
               </div>
             </div>
           ))}
