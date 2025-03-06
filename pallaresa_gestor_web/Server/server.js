@@ -176,6 +176,47 @@ app.get("/docente/folder", async (req, res) => {
 });
 
 
+//select roles
+app.get("/api/roles", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT nombre FROM roles");
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error obteniendo los roles");
+  }
+});
+
+//isert ficheros
+app.post("/api/ficheros", async (req, res) => {
+  const { nombre, enlace, carpeta, rol } = req.body;
+
+  if (!nombre || !enlace || !rol) {
+    return res.status(400).json({ error: "Todos los campos son obligatorios" });
+  }
+
+  try {
+    // Insertar el fichero
+    await pool.query(
+      "INSERT INTO ficheros (nombre, enlace, carpeta) VALUES ($1, $2, $3)",
+      [nombre, enlace, carpeta]
+    );
+
+    // Asignar el fichero al rol en la tabla rol_fichero
+    await pool.query(
+      "INSERT INTO rol_fichero (nombre_Rol, nombre_Fichero) VALUES ($1, $2)",
+      [rol, nombre]
+    );
+
+    res.status(201).json({ message: "Fichero insertado correctamente" });
+  } catch (error) {
+    console.error("Error al insertar fichero:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+
 
 app.listen(3001, () => {
     console.log("Servidor escuchando en el puerto 3001");
