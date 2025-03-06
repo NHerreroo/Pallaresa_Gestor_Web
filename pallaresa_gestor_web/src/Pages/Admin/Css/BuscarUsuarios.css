@@ -1,0 +1,91 @@
+/* BuscarUsuarios.css */
+
+/* Contenedor principal */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Ocupa toda la altura de la pantalla */
+}
+
+/* Contenedor del contenido (LeftBar, PlusButton y users-container) */
+.content-container {
+  display: flex;
+  flex: 1; /* Ocupa el espacio restante */
+  margin-top: 60px;
+}
+
+/* Sección izquierda (LeftBar y PlusButton) */
+.left-section {
+  width: 250px; /* Ancho fijo para LeftBar */
+  background-color: #f4f4f4; /* Color de fondo */
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra para separación visual */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra el PlusButton */
+}
+
+/* PlusButton */
+.plus-button {
+  margin-top: 20px; /* Espacio entre LeftBar y PlusButton */
+}
+
+/* Contenedor de usuarios */
+.users-container {
+  flex: 1; /* Ocupa el espacio restante */
+  padding: 20px;
+  overflow-y: auto; /* Scroll si el contenido es muy largo */
+}
+
+/* Estilos adicionales para los elementos existentes */
+.search-title {
+  margin-bottom: 20px;
+}
+
+.user-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  margin-right: 10px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.role-badge {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.role-badge.director {
+  background-color: #ffcc00;
+}
+
+.role-badge.docente {
+  background-color: #00ccff;
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+}
+
+.action-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
