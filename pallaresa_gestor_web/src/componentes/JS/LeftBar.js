@@ -1,7 +1,7 @@
 import React from 'react';
 import '../Css/LeftBar.css';
 
-const LeftBar = ({ title, roles }) => {
+export const LeftBar = ({ title, roles }) => {
   return (
     <div className="Barra">
       <h2 className="leftbar-title">{title}</h2>

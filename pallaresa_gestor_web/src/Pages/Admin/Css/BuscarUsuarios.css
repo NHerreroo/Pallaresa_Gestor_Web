@@ -11,6 +11,7 @@
 .content-container {
   display: flex;
   flex: 1; /* Ocupa el espacio restante */
+  margin-top: 60px;
 }
 
 /* Sección izquierda (LeftBar y PlusButton) */
