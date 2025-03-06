@@ -5,6 +5,7 @@ import PlusButton from '../../../componentes/JS/PlusButton.js';
 import '../Css/BuscarUsuarios.css';
 import '../../../componentes/Css/LeftBar.css';
 import  CrearUsuario  from './CrearUsuario.js';
+import User_IconButton from '../../../componentes/JS/User_Icon.js';
 
 const BuscarUsuarios = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -28,6 +29,7 @@ const BuscarUsuarios = () => {
   return (
     <div className="main-container">
       <TopBar onSearch={setSearchQuery} />
+      <User_IconButton></User_IconButton>
 
       <div className="content-container">
         <div className="left-section">
