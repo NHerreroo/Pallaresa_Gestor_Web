@@ -1,0 +1,44 @@
+/* Contenedor con scroll */
+.scroll-container {
+  width: 300px;
+  height: 400px;
+  overflow-y: auto;
+  border: 2px solid #ccc;
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+}
+
+/* Scroll personalizado */
+.scroll-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: #d3d3d3;
+  border-radius: 5px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Botones */
+.scroll-buttons {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+/* Información de scroll */
+.scroll-info {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}

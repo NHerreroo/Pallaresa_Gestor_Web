@@ -10,7 +10,7 @@ import  ImplementarArchivo from './ImplementarArchivo.js';
 export const AdminFolderScreen = () => {
   return (
     <div className='adminFolder'>
-     <div className='admin-folder-container'></div>
+    <div className='admin-folder-container'></div>
         <LeftBar/>
         <TopBar/>
         <User_IconButton/>

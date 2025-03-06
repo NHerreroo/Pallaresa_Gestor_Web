@@ -1,0 +1,58 @@
+.usuario-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f4f4f4;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .usuario-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .usuario-avatar {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  .usuario-nombre {
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .usuario-rol {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    color: white;
+  }
+  
+  .usuario-rol.director {
+    background-color: #ffa500; /* Color para Director */
+  }
+  
+  .usuario-rol.docente {
+    background-color: #8a2be2; /* Color para Docente */
+  }
+  
+  .usuario-correo {
+    margin: 0;
+    color: #555;
+    flex-grow: 1;
+    text-align: right;
+    margin-right: 20px;
+  }
+  
+  .usuario-configuracion {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
