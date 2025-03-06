@@ -7,6 +7,7 @@ import DocenteLogin from './Pages/Docente/JS/DocenteLogin';
 import { GenericLobby } from './Pages/Others/Js/GenericLobby';
 import { AdminLogin } from './Pages/Admin/JS/AdminLogin';
 import { AdminFolderScreen } from './Pages/Admin/JS/AdminFolderScreen';
+import { AdminUsers } from './Pages/Admin/JS/AdminUsers';
 import DocenteFolderScreen from './Pages/Docente/JS/DocenteFolderScreen';
 import PruebaUsuario, { RegistrarUsuario } from './Pages/Admin/JS/PruebaUsuario';
 import { ProtectedRoutesDocente, ProtectedRoutesAdmin } from './context/ProtectedRoutes';
@@ -37,6 +38,8 @@ function App() {
                 <Route path="/admin/folder" element={<AdminFolderScreen />} />
               </Route>
 
+              <Route path="/admin/users" element={<AdminUsers />} />
+              
               {/* Rutas protegidas para Docente */}
               <Route element={<ProtectedRoutesDocente />}>
                 <Route path="/docente/folder" element={<DocenteFolderScreen />} />
