@@ -3,13 +3,19 @@ import '../Css/User_Icon.css';
 import imagen from '../DefaultIcono.jpg';
 
 export const User_IconButton = () => {
-  const [correoUsuario, setCorreoUsuario] = useState('');
+  const [correoUsuario, setCorreoUsuario] = useState(localStorage.getItem("correoUsuario") || "");
 
   useEffect(() => {
-    const correoGuardado = localStorage.getItem("correoUsuario");
-    if (correoGuardado) {
-      setCorreoUsuario(correoGuardado);
-    }
+    const handleStorageChange = () => {
+      setCorreoUsuario(localStorage.getItem("correoUsuario") || "");
+    };
+
+    // Escuchar cambios en localStorage
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   return (

@@ -8,19 +8,10 @@ import { GenericLobby } from './Pages/Others/Js/GenericLobby';
 import { AdminLogin } from './Pages/Admin/JS/AdminLogin';
 import { AdminFolderScreen } from './Pages/Admin/JS/AdminFolderScreen';
 import DocenteFolderScreen from './Pages/Docente/JS/DocenteFolderScreen';
-import PruebaUsuario, { RegistrarUsuario } from './Pages/Admin/JS/PruebaUsuario';
+import PruebaUsuario from './Pages/Admin/JS/PruebaUsuario';
 import { ProtectedRoutesDocente, ProtectedRoutesAdmin } from './context/ProtectedRoutes';
 
 function App() {
-
-  const [correoUsuario, setCorreoUsuario] = useState(null);
-
-  useEffect(() => {
-    const correoGuardado = localStorage.getItem("correoUsuario");
-    if (correoGuardado) {
-      setCorreoUsuario(correoGuardado);
-    }
-  }, []);
 
   return (
     <div className="App">
