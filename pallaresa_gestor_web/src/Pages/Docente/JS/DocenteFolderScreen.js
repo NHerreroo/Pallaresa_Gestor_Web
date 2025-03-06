@@ -35,9 +35,11 @@ const DocenteFolderScreen = () => {
     fetchFicheros()
   }, [correoUsuario]) // Se ejecuta cuando el correoUsuario cambia
 
+  const roles = ["ROL 1", "ROL 2", "ROL 3"];
+  
   return (
     <div className="docente-folder">
-      <LeftBar />
+      <LeftBar title="TODOS LOS USUARIOS" roles={roles} />
       <div className="docente-folder-main">
         <TopBarDocente />
         <div className="docente-folder-content">

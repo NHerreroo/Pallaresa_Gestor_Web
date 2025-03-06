@@ -1,4 +1,5 @@
 .UserB{
+    z-index: 11;
     flex-shrink: 0;
     background: none;
     transition: 0.3s;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../Css/CrearUsuario.css";
 
@@ -9,6 +9,21 @@ const CrearUsuario = () => {
     const [rol, setRol] = useState("");
     const [mensaje, setMensaje] = useState("");
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [roles, setRoles] = useState([]); // Nueva lista de roles
+
+    useEffect(() => {
+        // Cargar roles desde el backend
+        const fetchRoles = async () => {
+            try {
+                const response = await axios.get("http://localhost:3001/api/roles");
+                setRoles(response.data);
+            } catch (error) {
+                console.error("Error cargando roles:", error);
+            }
+        };
+
+        fetchRoles();
+    }, []);
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -36,8 +51,8 @@ const CrearUsuario = () => {
     };
 
     const handleRolSelection = (selectedRol) => {
-        setRol(selectedRol); // Update the role state
-        setIsDropdownOpen(false); // Close the dropdown after selection
+        setRol(selectedRol);
+        setIsDropdownOpen(false); // Cerrar el dropdown después de seleccionar un rol
     };
 
     return (
@@ -78,16 +93,16 @@ const CrearUsuario = () => {
                         </div>
                         {isDropdownOpen && (
                             <div className="dropdown-options">
-                                {["Administrador", "Usuario", "Tester", "Gestor"].map((rolOption, index) => (
+                                {roles.map((rolOption, index) => (
                                     <label key={index} className="dropdown-option">
                                         <input
                                             type="radio"
                                             name="rol"
-                                            value={rolOption}
-                                            checked={rol === rolOption} // Ensure the selected role is checked
-                                            onChange={() => handleRolSelection(rolOption)}
+                                            value={rolOption.nombre}
+                                            checked={rol === rolOption.nombre}
+                                            onChange={() => handleRolSelection(rolOption.nombre)}
                                         />
-                                        {rolOption}
+                                        {rolOption.nombre}
                                     </label>
                                 ))}
                             </div>
