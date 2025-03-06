@@ -9,16 +9,11 @@ import EditarUsuario from './Pages/Admin/JS/EditarUsuario';
 import Scroll from './componentes/JS/Scroll'
 
 import { GenericLobby } from './Pages/Others/Js/GenericLobby';
-import DocenteLogin from './Pages/Docente/JS/DocenteLogin';
-import BuscarUsuario from './Pages/Admin/JS/BuscarUsuarios';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  
-    <BuscarUsuario/>
-  //<CrearUsuario/>
-  //<ModalRol/>
-  
+ <App />
 );
 
 reportWebVitals();

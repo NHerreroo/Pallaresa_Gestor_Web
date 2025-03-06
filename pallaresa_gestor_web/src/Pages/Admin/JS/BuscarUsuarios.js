@@ -4,8 +4,9 @@ import { LeftBar } from '../../../componentes/JS/LeftBar.js';
 import PlusButton from '../../../componentes/JS/PlusButton.js';
 import '../Css/BuscarUsuarios.css';
 import '../../../componentes/Css/LeftBar.css';
+import  CrearUsuario  from './CrearUsuario.js';
 
-const BuscarUsuario = () => {
+const BuscarUsuarios = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const users = [
@@ -31,7 +32,7 @@ const BuscarUsuario = () => {
       <div className="content-container">
         <div className="left-section">
           <LeftBar title="TODOS LOS USUARIOS" roles={roles} />
-          <PlusButton />
+          <PlusButton PageComponent={CrearUsuario} />
         </div>
 
         <div className="users-container">
@@ -65,4 +66,4 @@ const BuscarUsuario = () => {
   );
 };
 
-export default BuscarUsuario;
+export default BuscarUsuarios;
