@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import TopBar from '../../../componentes/JS/TopBar.js';
 import { LeftBar } from '../../../componentes/JS/LeftBar.js';
 import PlusButton from '../../../componentes/JS/PlusButton.js';
+import SearchBar from '../../../componentes/JS/search-bar.js'; 
 import '../Css/BuscarUsuarios.css';
 import '../../../componentes/Css/LeftBar.css';
-import  CrearUsuario  from './CrearUsuario.js';
+import CrearUsuario from './CrearUsuario.js';
 import User_IconButton from '../../../componentes/JS/User_Icon.js';
 
 const BuscarUsuarios = () => {
@@ -29,7 +30,7 @@ const BuscarUsuarios = () => {
   return (
     <div className="main-container">
       <TopBar onSearch={setSearchQuery} />
-      <User_IconButton></User_IconButton>
+      <User_IconButton />
 
       <div className="content-container">
         <div className="left-section">
@@ -39,6 +40,10 @@ const BuscarUsuarios = () => {
 
         <div className="users-container">
           <h1 className="search-title">Buscar usuarios</h1>
+
+          <SearchBar onSearch={setSearchQuery} />
+
+          {/* Lista de usuarios filtrados */}
           {filteredUsers.map((user, index) => (
             <div key={index} className="user-card">
               <div className="user-info">
