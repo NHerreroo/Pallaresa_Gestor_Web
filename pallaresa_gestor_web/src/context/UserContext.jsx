@@ -1,10 +1,18 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
-// Creamos el contexto de user
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(false); // Estado de user, por defecto está en false
+  const [user, setUser] = useState(() => {
+    // Recuperar el estado de user del localStorage al inicializar
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : false;
+  });
+
+  useEffect(() => {
+    // Guardar el estado de user en localStorage cada vez que cambie
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -13,4 +21,4 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-export const useUser = () => useContext(UserContext); // Hook para acceder al contexto;
+export const useUser = () => useContext(UserContext);
