@@ -3,7 +3,7 @@ import "../Css/ImplementarArchivo.css";
 
 export const ImplementarArchivo = () => {
   const [roles, setRoles] = useState([]);
-  const [selectedRole, setSelectedRole] = useState("");
+  const [selectedRoles, setSelectedRoles] = useState([]); // Array para roles seleccionados
   const [nombre, setNombre] = useState("");
   const [enlace, setEnlace] = useState("");
   const [esCarpeta, setEsCarpeta] = useState(false);
@@ -16,10 +16,23 @@ export const ImplementarArchivo = () => {
       .catch((error) => console.error("Error cargando roles:", error));
   }, []);
 
+  // Función para manejar la selección/deselección de roles
+  const handleRoleChange = (roleName) => {
+    setSelectedRoles((prevSelectedRoles) => {
+      if (prevSelectedRoles.includes(roleName)) {
+        // Si el rol ya está seleccionado, lo quitamos
+        return prevSelectedRoles.filter((role) => role !== roleName);
+      } else {
+        // Si el rol no está seleccionado, lo agregamos
+        return [...prevSelectedRoles, roleName];
+      }
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!nombre || !enlace || !selectedRole) {
+    if (!nombre || !enlace || selectedRoles.length === 0) {
       setMensaje("Todos los campos son obligatorios.");
       return;
     }
@@ -34,7 +47,7 @@ export const ImplementarArchivo = () => {
           nombre,
           enlace,
           carpeta: esCarpeta,
-          rol: selectedRole,
+          roles: selectedRoles, // Enviar array de roles
         }),
       });
 
@@ -43,7 +56,7 @@ export const ImplementarArchivo = () => {
         setMensaje("Fichero insertado correctamente.");
         setNombre("");
         setEnlace("");
-        setSelectedRole("");
+        setSelectedRoles([]); // Reiniciar roles seleccionados
         setEsCarpeta(false);
       } else {
         setMensaje(`Error: ${data.error}`);
@@ -74,18 +87,23 @@ export const ImplementarArchivo = () => {
             onChange={(e) => setEnlace(e.target.value)}
           />
 
-          <select
-            className="modal-input"
-            value={selectedRole}
-            onChange={(e) => setSelectedRole(e.target.value)}
-          >
-            <option value="">Selecciona un rol...</option>
-            {roles.map((role) => (
-              <option key={role.nombre} value={role.nombre}>
-                {role.nombre}
-              </option>
-            ))}
-          </select>
+          {/* Desplegable con scroll para seleccionar roles */}
+          <div className="roles-dropdown-container">
+            <p>Selecciona uno o varios roles:</p>
+            <div className="roles-dropdown">
+              {roles.map((role) => (
+                <label key={role.nombre} className="role-checkbox-label">
+                  <input
+                    type="checkbox"
+                    value={role.nombre}
+                    checked={selectedRoles.includes(role.nombre)}
+                    onChange={() => handleRoleChange(role.nombre)}
+                  />
+                  {role.nombre}
+                </label>
+              ))}
+            </div>
+          </div>
 
           <label>
             <input
@@ -96,7 +114,9 @@ export const ImplementarArchivo = () => {
             Es una carpeta
           </label>
 
-          <button type="submit" className="modal-button">Guardar</button>
+          <button type="submit" className="modal-button">
+            Guardar
+          </button>
 
           {mensaje && <p className="modal-message">{mensaje}</p>}
         </form>

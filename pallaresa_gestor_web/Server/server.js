@@ -189,9 +189,10 @@ app.get("/api/roles", async (req, res) => {
 
 //isert ficheros
 app.post("/api/ficheros", async (req, res) => {
-  const { nombre, enlace, carpeta, rol } = req.body;
+  const { nombre, enlace, carpeta, roles } = req.body;
 
-  if (!nombre || !enlace || !rol) {
+  // Validar que los campos obligatorios no estén vacíos
+  if (!nombre || !enlace || !roles || roles.length === 0) {
     return res.status(400).json({ error: "Todos los campos son obligatorios" });
   }
 
@@ -202,11 +203,13 @@ app.post("/api/ficheros", async (req, res) => {
       [nombre, enlace, carpeta]
     );
 
-    // Asignar el fichero al rol en la tabla rol_fichero
-    await pool.query(
-      "INSERT INTO rol_fichero (nombre_Rol, nombre_Fichero) VALUES ($1, $2)",
-      [rol, nombre]
-    );
+    // Asignar el fichero a cada rol en la tabla rol_fichero
+    for (const rol of roles) {
+      await pool.query(
+        "INSERT INTO rol_fichero (nombre_Rol, nombre_Fichero) VALUES ($1, $2)",
+        [rol, nombre]
+      );
+    }
 
     res.status(201).json({ message: "Fichero insertado correctamente" });
   } catch (error) {
