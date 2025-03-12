@@ -6,7 +6,7 @@ import { UserProvider } from './context/UserContext';
 import DocenteLogin from './Pages/Docente/JS/DocenteLogin';
 import { GenericLobby } from './Pages/Others/Js/GenericLobby';
 import { AdminLogin } from './Pages/Admin/JS/AdminLogin';
-import { AdminFolderScreen } from './Pages/Admin/JS/AdminFolderScreen';
+import AdminFolderScreen from './Pages/Admin/JS/AdminFolderScreen';
 import BuscarUsuarios  from './Pages/Admin/JS/BuscarUsuarios';
 import DocenteFolderScreen from './Pages/Docente/JS/DocenteFolderScreen';
 import PruebaUsuario from './Pages/Admin/JS/PruebaUsuario';
