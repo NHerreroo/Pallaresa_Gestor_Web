@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../Css/User_Icon.css';
 import imagen from '../DefaultIcono.jpg';
 import useLogout from './useLogout';
-import ConfirmationModal from './useLogout.js'; // Import your custom modal component
+import ConfirmationModal from './ConfrimationModal.js'; // Import the custom modal component
 
 export const User_IconButton = () => {
   const [correoUsuario, setCorreoUsuario] = useState(localStorage.getItem("correoUsuario") || "");
@@ -40,7 +40,7 @@ export const User_IconButton = () => {
         isOpen={showConfirmation}
         onConfirm={logout}
         onCancel={cancelLogout}
-        message="Are you sure you want to log out?"
+        message="¿Estás seguro de cerrar sesión?"
       />
     </div>
   );
