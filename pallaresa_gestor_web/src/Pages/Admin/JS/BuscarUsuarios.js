@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import axios from 'axios';
 import TopBar from '../../../componentes/JS/TopBar.js';
 import { LeftBar } from '../../../componentes/JS/LeftBar.js';
@@ -12,6 +12,7 @@ import User_IconButton from '../../../componentes/JS/User_Icon.js';
 const BuscarUsuarios = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [users, setUsers] = useState([]);
+  const [roles, setRoles] = useState(["ROL 1", "ROL 2", "ROL 3"]);
 
   // Obtener usuarios desde la API
   useEffect(() => {
@@ -39,8 +40,11 @@ const BuscarUsuarios = () => {
   );
 
   // Función para agregar un nuevo rol
-  const addRole = (newRole) => {
-    setRoles([...roles, newRole]);
+  const addRole = () => {
+    const newRole = prompt("Ingrese el nombre del nuevo rol:");
+    if (newRole) {
+      setRoles([...roles, newRole]);
+    }
   };
 
   return (
