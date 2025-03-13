@@ -8,9 +8,6 @@ app.use(cors());
 app.use(express.json());
 
 
-
-
-
 // Ruta de registro
 app.post('/api/register', async (req, res) => {
   const { correo, nombre, contraseña, rol } = req.body;
@@ -36,6 +33,25 @@ app.post('/api/register', async (req, res) => {
   } catch (error) {
     console.error('Error en el servidor:', error);
     res.status(500).json({ error: error.message });
+  }
+});
+
+
+// Ruta para obtener todos los usuarios con su rol
+app.get('/api/usuarios', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT 
+        p.correo, 
+        p.nombre, 
+        COALESCE(pr.nombre_rol, 'DOCENTE') AS rol
+      FROM personas p
+      LEFT JOIN persona_rol pr ON p.correo = pr.correo_persona
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error al obtener los usuarios:', error);
+    res.status(500).json({ error: 'Error al obtener los usuarios' });
   }
 });
 
@@ -91,9 +107,6 @@ app.post("/login", async (req, res) => {
       res.status(500).json({ message: "Error del servidor", error: error.message });
   }
 });
-
-
-
 
 
 

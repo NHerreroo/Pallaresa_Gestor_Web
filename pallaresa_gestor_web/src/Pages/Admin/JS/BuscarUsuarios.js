@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import TopBar from '../../../componentes/JS/TopBar.js';
 import { LeftBar } from '../../../componentes/JS/LeftBar.js';
 import PlusButton from '../../../componentes/JS/PlusButton.js';
@@ -10,17 +11,28 @@ import User_IconButton from '../../../componentes/JS/User_Icon.js';
 
 const BuscarUsuarios = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [roles, setRoles] = useState(["ROL 1", "ROL 2", "ROL 3"]);
+  const [users, setUsers] = useState([]);
 
-  const users = [
-    { name: "Colomar Colomar", role: "DIRECTOR", email: "correo.correo@pallaerea.com" },
-    { name: "NOMBRE USUARIO", role: "DOCENTE", email: "correo.correo@pallaerea.com" },
-    { name: "NOMBRE USUARIO", role: "DOCENTE", email: "correo.correo@pallaerea.com" },
-    { name: "NOMBRE USUARIO", role: "DOCENTE", email: "correo.correo@pallaerea.com" },
-    { name: "NOMBRE USUARIO", role: "DOCENTE", email: "correo.correo@pallaerea.com" },
-    { name: "NOMBRE USUARIO", role: "DOCENTE", email: "correo.correo@pallaerea.com" }
-  ];
+  // Obtener usuarios desde la API
+  useEffect(() => {
+    const fetchUsuarios = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/api/usuarios');
+        const usuariosFormateados = response.data.map(user => ({
+          name: user.nombre,
+          role: user.rol,  // El rol ya viene asignado desde el backend
+          email: user.correo
+        }));
+        setUsers(usuariosFormateados);
+      } catch (error) {
+        console.error('Error al obtener los usuarios', error);
+      }
+    };
 
+    fetchUsuarios();
+  }, []);
+
+  // Filtrar usuarios por nombre o correo
   const filteredUsers = users.filter(user =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.email.toLowerCase().includes(searchQuery.toLowerCase())

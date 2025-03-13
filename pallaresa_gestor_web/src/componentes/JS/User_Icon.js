@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../Css/User_Icon.css';
 import imagen from '../DefaultIcono.jpg';
+import useLogout from './useLogout';
 
 export const User_IconButton = () => {
   const [correoUsuario, setCorreoUsuario] = useState(localStorage.getItem("correoUsuario") || "");
@@ -10,6 +11,8 @@ export const User_IconButton = () => {
       setCorreoUsuario(localStorage.getItem("correoUsuario") || "");
     };
 
+    
+
     // Escuchar cambios en localStorage
     window.addEventListener("storage", handleStorageChange);
 
@@ -18,10 +21,15 @@ export const User_IconButton = () => {
     };
   }, []);
 
+  
+  const logout = useLogout();
+  
   return (
     <div className='group'>
       <div className='Icono'>
-        <img src={imagen} alt="UsersButton"/>
+        <button onClick={logout}>
+          <img src={imagen} alt="UsersButton"/>
+        </button>
       </div>
       <div className='texto'>
         {correoUsuario ? correoUsuario : "Usuario"}
