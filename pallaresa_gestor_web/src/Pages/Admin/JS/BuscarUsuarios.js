@@ -10,6 +10,7 @@ import User_IconButton from '../../../componentes/JS/User_Icon.js';
 
 const BuscarUsuarios = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [roles, setRoles] = useState(["ROL 1", "ROL 2", "ROL 3"]);
 
   const users = [
     { name: "Colomar Colomar", role: "DIRECTOR", email: "correo.correo@pallaerea.com" },
@@ -25,7 +26,10 @@ const BuscarUsuarios = () => {
     user.email.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const roles = ["ROL 1", "ROL 2", "ROL 3"];
+  // Función para agregar un nuevo rol
+  const addRole = (newRole) => {
+    setRoles([...roles, newRole]);
+  };
 
   return (
     <div className="main-container">
@@ -34,13 +38,12 @@ const BuscarUsuarios = () => {
 
       <div className="content-container">
         <div className="left-section">
-          <LeftBar title="TODOS LOS USUARIOS" roles={roles} />
+          <LeftBar title="TODOS LOS USUARIOS" roles={roles} onAddRole={addRole} />
           <PlusButton PageComponent={CrearUsuario} />
         </div>
 
         <div className="users-container">
           <h1 className="search-title">Buscar usuarios</h1>
-
           <SearchBar onSearch={setSearchQuery} />
 
           {/* Lista de usuarios filtrados */}
