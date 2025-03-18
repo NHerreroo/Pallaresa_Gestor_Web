@@ -7,6 +7,8 @@ import {TopBar} from "../../../componentes/JS/TopBar.js"
 import { User_IconButton } from "../../../componentes/JS/User_Icon.js"
 import FileCard from "../../../componentes/JS/FileCard.tsx"
 import "../Css/AdminFolderScreen.css"
+import PlusButton from "../../../componentes/JS/PlusButton.js" 
+import ImplementarArchivo from "./ImplementarArchivo.js"
 
 const AdminFolderScreen = () => {
   const [ficheros, setFicheros] = useState([])
@@ -39,6 +41,7 @@ const AdminFolderScreen = () => {
   
   return (
     <div className="docente-folder">
+      <PlusButton PageComponent={ImplementarArchivo} />
       <LeftBar title="TODOS LOS USUARIOS" roles={roles} />
       <div className="docente-folder-main">
         <TopBar />
