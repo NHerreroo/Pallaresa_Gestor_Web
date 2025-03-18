@@ -234,6 +234,27 @@ app.post("/api/ficheros", async (req, res) => {
 
 
 
+// Ruta para insertar un nuevo rol
+app.post("/api/roles", async (req, res) => {
+  const { nombre } = req.body;
+
+  if (!nombre) {
+    return res.status(400).json({ error: "El nombre del rol es obligatorio" });
+  }
+
+  try {
+    // Insertar el nuevo rol en la base de datos
+    await pool.query("INSERT INTO roles (nombre) VALUES ($1)", [nombre]);
+    res.status(201).json({ message: "Rol insertado correctamente" });
+  } catch (error) {
+    console.error("Error al insertar rol:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+
+
 app.listen(3001, () => {
     console.log("Servidor escuchando en el puerto 3001");
 });
