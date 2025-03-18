@@ -231,7 +231,41 @@ app.post("/api/ficheros", async (req, res) => {
   }
 });
 
+app.put("/api/ficherosEdit", async (req, res) => {
+  const { nombre, enlace, carpeta, roles } = req.body;
 
+  // Validar que los campos obligatorios no estén vacíos
+  if (!nombre || !roles || roles.length === 0) {
+    return res.status(400).json({ error: "Nombre y al menos un rol son obligatorios" });
+  }
+
+  try {
+    // Actualizar el fichero
+    await pool.query(
+      "UPDATE ficheros SET enlace = $1, carpeta = $2 WHERE nombre = $3",
+      [enlace, carpeta, nombre]
+    );
+
+    // Eliminar las relaciones anteriores en la tabla rol_fichero
+    await pool.query(
+      "DELETE FROM rol_fichero WHERE nombre_Fichero = $1",
+      [nombre]
+    );
+
+    // Asignar el fichero a cada rol en la tabla rol_fichero
+    for (const rol of roles) {
+      await pool.query(
+        "INSERT INTO rol_fichero (nombre_Rol, nombre_Fichero) VALUES ($1, $2)",
+        [rol, nombre]
+      );
+    }
+
+    res.status(200).json({ message: "Fichero actualizado correctamente" });
+  } catch (error) {
+    console.error("Error al actualizar fichero:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
 
 
 app.listen(3001, () => {
