@@ -1,11 +1,13 @@
-import React from 'react';
-import '../Css/LeftBar.css';
+import React, { useState } from "react";
+import "../Css/LeftBar.css";
+import ImplementarRol from "../../Pages/Admin/JS/ImplementarRol.js"; // Popup de roles
 
-export const LeftBar = ({ title, roles, onAddRole }) => {
-  const handleAddRole = () => {
-    const newRole = prompt("Ingrese el nombre del nuevo rol:");
-    if (newRole && onAddRole) {
-      onAddRole(newRole);
+export const LeftBar = ({ title, roles }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const closeModal = (e) => {
+    if (e.target.classList.contains("overlay")) {
+      setIsModalOpen(false);
     }
   };
 
@@ -16,12 +18,19 @@ export const LeftBar = ({ title, roles, onAddRole }) => {
         {roles.map((role, index) => (
           <p key={index} className="role-title">{role}</p>
         ))}
-        {onAddRole && (
-          <button className="add-role-button" onClick={handleAddRole}>
-            <span className="plus-icon">+</span>
-          </button>
-        )}
+        <button className="add-role-button" onClick={() => setIsModalOpen(true)}>
+          <span className="plus-icon">+</span>
+        </button>
       </div>
+
+      {/* Renderizamos el modal solo si isModalOpen es true */}
+      {isModalOpen && (
+        <div className="overlay" onClick={closeModal}>
+          <div className="modal-content">
+            <ImplementarRol onClose={() => setIsModalOpen(false)} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
