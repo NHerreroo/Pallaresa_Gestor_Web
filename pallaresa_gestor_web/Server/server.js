@@ -231,7 +231,16 @@ app.post("/api/ficheros", async (req, res) => {
   }
 });
 
-
+//todos los roles
+app.get('/roles', async (req, res) => {
+  try {
+      const result = await pool.query('SELECT nombre FROM roles');
+      res.json(result.rows);
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Error al obtener los roles');
+  }
+});
 
 
 // Ruta para insertar un nuevo rol

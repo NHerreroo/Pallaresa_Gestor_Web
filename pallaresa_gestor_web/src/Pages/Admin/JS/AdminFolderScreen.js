@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { LeftBar } from "../../../componentes/JS/LeftBar.js"
+import  LeftBar  from "../../../componentes/JS/LeftBar.js"
 import {TopBar} from "../../../componentes/JS/TopBar.js"
 import { User_IconButton } from "../../../componentes/JS/User_Icon.js"
 import FileCard from "../../../componentes/JS/FileCard.tsx"

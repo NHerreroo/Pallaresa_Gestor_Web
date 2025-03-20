@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
 import axios from 'axios';
 import TopBar from '../../../componentes/JS/TopBar.js';
-import { LeftBar } from '../../../componentes/JS/LeftBar.js';
+import LeftBar from '../../../componentes/JS/LeftBar.js';
 import PlusButton from '../../../componentes/JS/PlusButton.js';
 import SearchBar from '../../../componentes/JS/search-bar.js'; 
 import '../Css/BuscarUsuarios.css';
