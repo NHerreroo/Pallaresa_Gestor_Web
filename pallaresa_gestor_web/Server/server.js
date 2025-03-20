@@ -230,9 +230,8 @@ app.post("/api/ficheros", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
 app.put("/api/ficherosEdit", async (req, res) => {
-  const { nombre, enlace, carpeta, roles } = req.body;
+  const { nombre, nuevoNombre, enlace, carpeta, roles } = req.body;
 
   // Validar que los campos obligatorios no estén vacíos
   if (!nombre || !roles || roles.length === 0) {
@@ -240,11 +239,8 @@ app.put("/api/ficherosEdit", async (req, res) => {
   }
 
   try {
-    // Actualizar el fichero
-    await pool.query(
-      "UPDATE ficheros SET enlace = $1, carpeta = $2 WHERE nombre = $3",
-      [enlace, carpeta, nombre]
-    );
+    // Iniciar una transacción
+    await pool.query("BEGIN");
 
     // Eliminar las relaciones anteriores en la tabla rol_fichero
     await pool.query(
@@ -252,21 +248,50 @@ app.put("/api/ficherosEdit", async (req, res) => {
       [nombre]
     );
 
+    // Actualizar el fichero
+    await pool.query(
+      "UPDATE ficheros SET nombre = $1, enlace = $2, carpeta = $3 WHERE nombre = $4",
+      [nuevoNombre || nombre, enlace, carpeta, nombre]
+    );
+
     // Asignar el fichero a cada rol en la tabla rol_fichero
     for (const rol of roles) {
       await pool.query(
         "INSERT INTO rol_fichero (nombre_Rol, nombre_Fichero) VALUES ($1, $2)",
-        [rol, nombre]
+        [rol, nuevoNombre || nombre]
       );
     }
 
+    // Confirmar la transacción
+    await pool.query("COMMIT");
+
     res.status(200).json({ message: "Fichero actualizado correctamente" });
   } catch (error) {
+    // Revertir la transacción en caso de error
+    await pool.query("ROLLBACK");
     console.error("Error al actualizar fichero:", error);
     res.status(500).json({ error: error.message });
   }
 });
 
+app.get("/api/ficherosRoles", async (req, res) => {
+  const { nombre } = req.query;
+
+  if (!nombre) {
+    return res.status(400).json({ error: "Nombre del fichero es requerido" });
+  }
+
+  try {
+    const result = await pool.query(
+      "SELECT nombre_Rol FROM rol_fichero WHERE nombre_Fichero = $1",
+      [nombre]
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error obteniendo los roles del fichero" });
+  }
+});
 
 app.listen(3001, () => {
     console.log("Servidor escuchando en el puerto 3001");

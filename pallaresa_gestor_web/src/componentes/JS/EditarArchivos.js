@@ -3,18 +3,39 @@ import "../Css/EditarArchivo.css";
 
 export const EditarArchivos = ({ nombre: nombreInicial, enlace: enlaceInicial, esCarpeta: esCarpetaInicial, onClose }) => {
   const [roles, setRoles] = useState([]);
-  const [selectedRoles, setSelectedRoles] = useState([]); // Inicializar con roles actuales
-  const [nombre, setNombre] = useState(nombreInicial || ""); // Inicializar con nombre actual
-  const [enlace, setEnlace] = useState(enlaceInicial || ""); // Inicializar con enlace actual
-  const [esCarpeta, setEsCarpeta] = useState(esCarpetaInicial || false); // Inicializar con esCarpeta actual
+  const [selectedRoles, setSelectedRoles] = useState([]);
+  const [nombre, setNombre] = useState(nombreInicial || "");
+  const [enlace, setEnlace] = useState(enlaceInicial || "");
+  const [esCarpeta, setEsCarpeta] = useState(esCarpetaInicial || false);
   const [mensaje, setMensaje] = useState("");
+  const [loading, setLoading] = useState(true); // Add a loading state
 
   useEffect(() => {
+    // Fetch all available roles
     fetch("http://localhost:3001/api/roles")
       .then((response) => response.json())
       .then((data) => setRoles(data))
       .catch((error) => console.error("Error cargando roles:", error));
-  }, []);
+
+      fetch(`http://localhost:3001/api/ficherosRoles?nombre=${nombreInicial}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Roles fetched from backend:", data); // Log the fetched roles
+        const roles = data.map(role => role.nombre_Rol);
+        console.log("Selected roles after fetch:", roles); // Log the selected roles
+        setSelectedRoles(roles);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error cargando roles del fichero:", error);
+        setLoading(false);
+      });
+  }, [nombreInicial]);
 
   const handleRoleChange = (roleName) => {
     setSelectedRoles((prevSelectedRoles) => {
@@ -28,12 +49,12 @@ export const EditarArchivos = ({ nombre: nombreInicial, enlace: enlaceInicial, e
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!nombre || selectedRoles.length === 0) {
       setMensaje("Nombre y al menos un rol son obligatorios.");
       return;
     }
-
+  
     try {
       const response = await fetch("http://localhost:3001/api/ficherosEdit", {
         method: "PUT",
@@ -41,13 +62,14 @@ export const EditarArchivos = ({ nombre: nombreInicial, enlace: enlaceInicial, e
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          nombre,
+          nombre: nombreInicial, 
+          nuevoNombre: nombre, 
           enlace,
           carpeta: esCarpeta,
           roles: selectedRoles,
         }),
       });
-
+  
       const data = await response.json();
       if (response.ok) {
         setMensaje("Fichero actualizado correctamente.");
@@ -60,6 +82,11 @@ export const EditarArchivos = ({ nombre: nombreInicial, enlace: enlaceInicial, e
       setMensaje("Hubo un error al actualizar el fichero.");
     }
   };
+
+  // Show a loading message while roles are being fetched
+  if (loading) {
+    return <div>Cargando roles...</div>;
+  }
 
   return (
     <div className="modal-container-overlay">
