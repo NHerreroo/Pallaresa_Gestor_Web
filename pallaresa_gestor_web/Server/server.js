@@ -333,6 +333,46 @@ app.get("/api/ficherosRoles", async (req, res) => {
   }
 });
 
+
+//modificar usuario
+app.put('/api/usuarios/:email', async (req, res) => {
+  const { email } = req.params;
+  const { nombre, roles } = req.body;
+
+  try {
+    await pool.query('UPDATE personas SET nombre = $1 WHERE correo = $2', [nombre, email]);
+
+    // Borrar roles actuales
+    await pool.query('DELETE FROM persona_rol WHERE correo_persona = $1', [email]);
+
+    // Insertar nuevos roles
+    for (const rol of roles) {
+      await pool.query('INSERT INTO persona_rol (correo_persona, nombre_rol) VALUES ($1, $2)', [email, rol]);
+    }
+
+    res.json({ message: 'Usuario actualizado correctamente' });
+  } catch (error) {
+    console.error('Error al actualizar usuario:', error);
+    res.status(500).json({ error: 'Error al actualizar usuario' });
+  }
+});
+
+app.delete('/api/usuarios/:email', async (req, res) => {
+  const { email } = req.params;
+  
+  try {
+    await pool.query('DELETE FROM persona_rol WHERE correo_persona = $1', [email]);
+    await pool.query('DELETE FROM personas WHERE correo = $1', [email]);
+    
+    res.json({ message: 'Usuario eliminado correctamente' });
+  } catch (error) {
+    console.error('Error al eliminar usuario:', error);
+    res.status(500).json({ error: 'Error al eliminar usuario' });
+  }
+});
+
+
 app.listen(3001, () => {
     console.log("Servidor escuchando en el puerto 3001");
 });
+

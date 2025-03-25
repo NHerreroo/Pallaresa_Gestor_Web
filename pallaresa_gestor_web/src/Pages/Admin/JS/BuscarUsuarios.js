@@ -22,23 +22,50 @@ const BuscarUsuarios = () => {
     const fetchUsuarios = async () => {
       try {
         const response = await axios.get('http://localhost:3001/api/usuarios');
-        const usuariosFormateados = response.data.map(user => ({
-          name: user.nombre,
-          role: user.rol,
-          email: user.correo
-        }));
-        setUsers(usuariosFormateados);
+        
+        // Agrupar los roles por usuario
+        const usuariosAgrupados = response.data.reduce((acc, user) => {
+          const existingUser = acc.find(u => u.email === user.correo);
+          if (existingUser) {
+            existingUser.roles.push(user.rol); // Agregar rol al usuario existente
+          } else {
+            acc.push({
+              name: user.nombre,
+              email: user.correo,
+              roles: [user.rol] // Crear un array de roles
+            });
+          }
+          return acc;
+        }, []);
+  
+        setUsers(usuariosAgrupados);
       } catch (error) {
         console.error('Error al obtener los usuarios', error);
       }
     };
     fetchUsuarios();
+
+    const fetchRoles = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/api/roles');
+        setRoles(response.data); 
+      } catch (error) {
+        console.error('Error al obtener los roles', error);
+      }
+    };
+  
+    fetchRoles();
+
   }, []);
+
+  
 
   const filteredUsers = users.filter(user =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.email.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  
 
   const addRole = () => {
     const newRole = prompt("Ingrese el nombre del nuevo rol:");
@@ -49,7 +76,10 @@ const BuscarUsuarios = () => {
 
   const openEditPopup = (user) => {
     if (user.role !== 'ADMINISTRADOR') {
-      setSelectedUser(user);
+      setSelectedUser({
+        ...user,
+        roles: [...user.roles]
+      });
       setPopupVisible(true);
       setConfirmDelete(false);
     }
@@ -61,21 +91,46 @@ const BuscarUsuarios = () => {
     setConfirmDelete(false);
   };
 
-  const handleSave = () => {
-    // Aquí podrías agregar una llamada a la API para actualizar el usuario
-    setUsers(users.map(user => user.email === selectedUser.email ? selectedUser : user));
-    closePopup();
-  };
-
-  const handleDelete = () => {
-    if (confirmDelete) {
-      // Aquí podrías agregar una llamada a la API para eliminar el usuario
-      setUsers(users.filter(user => user.email !== selectedUser.email));
+  const handleSave = async () => {
+    try {
+      await axios.put(`http://localhost:3001/api/usuarios/${selectedUser.email}`, {
+        nombre: selectedUser.name,
+        roles: selectedUser.roles
+      });
+  
+      setUsers(users.map(user => 
+        user.email === selectedUser.email ? { ...user, name: selectedUser.name, role: selectedUser.roles.join(", ") } : user
+      ));
+  
       closePopup();
-    } else {
-      setConfirmDelete(true);
+    } catch (error) {
+      console.error('Error al guardar usuario', error);
     }
   };
+
+const handleDelete = async () => {
+  if (confirmDelete) {
+    try {
+      await axios.delete(`http://localhost:3001/api/usuarios/${selectedUser.email}`);
+      setUsers(users.filter(user => user.email !== selectedUser.email));
+      closePopup();
+    } catch (error) {
+      console.error('Error al eliminar usuario', error);
+    }
+  } else {
+    setConfirmDelete(true);
+  }
+};
+
+const handleRoleChange = (roleName) => {
+  setSelectedUser(prev => {
+    const hasRole = prev.roles.includes(roleName);
+    return {
+      ...prev,
+      roles: hasRole ? prev.roles.filter(r => r !== roleName) : [...prev.roles, roleName]
+    };
+  });
+};
 
   return (
     <div className="main-container">
@@ -90,33 +145,35 @@ const BuscarUsuarios = () => {
           <h1 className="search-title">Buscar usuarios</h1>
           <SearchBar onSearch={setSearchQuery} />
           {filteredUsers.map((user, index) => (
-            <div key={index} className="user-card">
-              <div className="user-info">
-                <div className="user-avatar">
-                  <User size={20} />
-                </div>
-                <div className="user-details">
-                  <p className="user-name">{user.name}</p>
-                  <span className={`role-badge ${user.role === "ADMINISTRADOR" ? "administrador" : 
-                                                user.role === "DIRECTOR" ? "director" : 
-                                                user.role === "EDITOR" ? "editor" : "usuario"}`}>
-                    {user.role}
-                  </span>
-                </div>
+          <div key={index} className="user-card">
+            <div className="user-info">
+              <div className="user-avatar">
+                <User size={20} />
               </div>
-              <div className="user-actions">
-                <span className="user-email">{user.email}</span>
-                <button 
-                  className="action-button" 
-                  onClick={() => openEditPopup(user)}
-                  disabled={user.role === 'ADMINISTRADOR'}
-                  title={user.role === 'ADMINISTRADOR' ? "No se puede editar un administrador" : "Editar usuario"}
-                >
-                  <MoreHorizontal size={20} />
-                </button>
+              <div className="user-details">
+                <p className="user-name">{user.name}</p>
+                <div className="role-badges">
+                {user.roles.map((role, i) => (
+                  <span key={i} className="role-badge bg-green-500 text-white px-2 py-1 rounded-full">
+                    {role}
+                  </span>
+                ))}
+                </div>
               </div>
             </div>
-          ))}
+            <div className="user-actions">
+              <span className="user-email">{user.email}</span>
+              <button 
+                className="action-button" 
+                onClick={() => openEditPopup(user)}
+                disabled={user.roles.includes('ADMINISTRADOR')}
+                title={user.roles.includes('ADMINISTRADOR') ? "No se puede editar un administrador" : "Editar usuario"}
+              >
+                <MoreHorizontal size={20} />
+              </button>
+            </div>
+          </div>
+        ))}
         </div>
       </div>
 
@@ -152,17 +209,20 @@ const BuscarUsuarios = () => {
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="userRole">Rol:</label>
-                    <select
-                      id="userRole"
-                      value={selectedUser.role}
-                      onChange={(e) => setSelectedUser({ ...selectedUser, role: e.target.value })}
-                      className="form-select"
-                    >
-                      {roles.map((role, index) => (
-                        <option key={index} value={role}>{role}</option>
-                      ))}
-                    </select>
+                    <label>Roles:</label>
+                    <div className="roles-container">
+                    {roles.map(role => (
+                    <label key={role.nombre} className="role-item">
+                      <input
+                        type="checkbox"
+                        checked={selectedUser.roles.includes(role.nombre)}
+                        onChange={() => handleRoleChange(role.nombre)}
+                      />
+                      {role.nombre} {/* Aquí se usa role.nombre en lugar de role directamente */}
+                    </label>
+                  ))}
+                </div>
+
                   </div>
                   <div className="form-group">
                     <label htmlFor="userEmail">Email:</label>
