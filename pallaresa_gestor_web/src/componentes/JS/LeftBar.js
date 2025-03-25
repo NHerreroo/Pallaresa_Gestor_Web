@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import "../Css/LeftBar.css";
 import ImplementarRol from "../../Pages/Admin/JS/ImplementarRol.js"; // Popup de roles
+import Eliminar_rol from "./Eliminar_rol.js";
 
 const LeftBar = () => {
   const [roles, setRoles] = useState([])
@@ -84,6 +85,7 @@ const LeftBar = () => {
           filteredRoles.map((role, index) => (
             <div key={role.id || index} className="role-item">
               {role.nombre}
+              <Eliminar_rol nombre={role.nombre} />
             </div>
           ))
         ) : (
