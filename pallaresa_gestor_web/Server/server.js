@@ -333,6 +333,37 @@ app.get("/api/ficherosRoles", async (req, res) => {
   }
 });
 
+app.delete("/api/ficherosRemove", async (req, res) => {
+  const { nombre } = req.body;
+  
+  if (!nombre) {
+    return res.status(400).json({ error: "File name is required" });
+  }
+
+  try {
+    await pool.query("BEGIN");
+    
+    // First delete from rol_fichero (foreign key constraint)
+    await pool.query(
+      "DELETE FROM rol_fichero WHERE nombre_Fichero = $1",
+      [nombre]
+    );
+    
+    // Then delete from ficheros
+    await pool.query(
+      "DELETE FROM ficheros WHERE nombre = $1",
+      [nombre]
+    );
+    
+    await pool.query("COMMIT");
+    res.status(200).json({ message: "File deleted successfully" });
+  } catch (error) {
+    await pool.query("ROLLBACK");
+    console.error("Error deleting file:", error);
+    res.status(500).json({ error: "Error deleting file" });
+  }
+});
+
 app.listen(3001, () => {
     console.log("Servidor escuchando en el puerto 3001");
 });

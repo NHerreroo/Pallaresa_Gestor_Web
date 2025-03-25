@@ -2,6 +2,7 @@ import React from "react";
 import "../Css/FileCard.css";
 import EditarArchivos from "./EditarArchivos";
 import EditButton from "./EditButton";
+import RemoveButton from "./Rol_remove_button";
 
 interface FileCardProps {
   nombre: string;
@@ -13,23 +14,31 @@ interface FileCardProps {
 const FileCard: React.FC<FileCardProps> = ({ nombre, enlace, esCarpeta, nombre_rol }) => {
   return (
     <div className="file-card">
-      {/* Pasar los valores del archivo a EditButton */}
-      <EditButton
-        PageComponent={EditarArchivos}
-        nombre={nombre}
-        enlace={enlace}
-        esCarpeta={esCarpeta}
-        rol={nombre_rol}
-      />
-      <div
-        className="file-icons-container"
-        onClick={() => window.open(enlace, "_blank")}
-      >
-        <div className="file-icons">{esCarpeta ? "📂" : "📄"}</div>
+      <div className="file-actions-container">
+        <EditButton
+          PageComponent={EditarArchivos}
+          nombre={nombre}
+          enlace={enlace}
+          esCarpeta={esCarpeta}
+          rol={nombre_rol}
+        />
+        <RemoveButton nombre={nombre} />
       </div>
-      <p className="file-name" onClick={() => window.open(enlace, "_blank")}>
-        {nombre}
-      </p>
+      
+      <div className="file-content">
+        <div 
+          className="file-icons-container"
+          onClick={() => window.open(enlace, "_blank")}
+        >
+          <div className="file-icons">{esCarpeta ? "📂" : "📄"}</div>
+        </div>
+        <p 
+          className="file-name" 
+          onClick={() => window.open(enlace, "_blank")}
+        >
+          {nombre}
+        </p>
+      </div>
     </div>
   );
 };
