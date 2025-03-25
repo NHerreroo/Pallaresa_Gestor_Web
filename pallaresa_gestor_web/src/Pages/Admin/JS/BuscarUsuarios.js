@@ -1,122 +1,168 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import TopBar from '../../../componentes/JS/TopBar.js';
-import LeftBar from '../../../componentes/JS/LeftBar.js';
-import PlusButton from '../../../componentes/JS/PlusButton.js';
-import SearchBar from '../../../componentes/JS/search-bar.js'; 
-import '../Css/BuscarUsuarios.css';
-import '../../../componentes/Css/LeftBar.css';
-import CrearUsuario from './CrearUsuario.js';
-import User_IconButton from '../../../componentes/JS/User_Icon.js';
-import { Edit, X, Save, MoreHorizontal, User, Trash2, AlertTriangle } from 'lucide-react';
+"use client"
+
+import { useState, useEffect } from "react"
+import axios from "axios"
+import TopBar from "../../../componentes/JS/TopBar.js"
+import LeftBar from "../../../componentes/JS/LeftBar.js"
+import PlusButton from "../../../componentes/JS/PlusButton.js"
+import SearchBar from "../../../componentes/JS/search-bar.js"
+import User_IconButton from "../../../componentes/JS/User_Icon.js"
+import { X, Save, MoreHorizontal, User, Trash2, AlertTriangle } from "lucide-react"
+import "../Css/BuscarUsuarios.css"
+import "../../../componentes/Css/LeftBar.css"
 
 const BuscarUsuarios = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [users, setUsers] = useState([]);
-  const [roles, setRoles] = useState(["ROL 1", "ROL 2", "ROL 3"]);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [popupVisible, setPopupVisible] = useState(false);
-  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("")
+  const [users, setUsers] = useState([])
+  const [roles, setRoles] = useState(["ROL 1", "ROL 2", "ROL 3"])
+  const [selectedUser, setSelectedUser] = useState(null)
+  const [popupVisible, setPopupVisible] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Detectar si es dispositivo móvil
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkIfMobile()
+    window.addEventListener("resize", checkIfMobile)
+
+    return () => {
+      window.removeEventListener("resize", checkIfMobile)
+    }
+  }, [])
 
   useEffect(() => {
     const fetchUsuarios = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/usuarios');
-        const usuariosFormateados = response.data.map(user => ({
+        const response = await axios.get("http://localhost:3001/api/usuarios")
+        const usuariosFormateados = response.data.map((user) => ({
           name: user.nombre,
           role: user.rol,
-          email: user.correo
-        }));
-        setUsers(usuariosFormateados);
+          email: user.correo,
+        }))
+        setUsers(usuariosFormateados)
       } catch (error) {
-        console.error('Error al obtener los usuarios', error);
+        console.error("Error al obtener los usuarios", error)
       }
-    };
-    fetchUsuarios();
-  }, []);
+    }
+    fetchUsuarios()
+  }, [])
 
-  const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredUsers = users.filter(
+    (user) =>
+      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchQuery.toLowerCase()),
+  )
 
   const addRole = () => {
-    const newRole = prompt("Ingrese el nombre del nuevo rol:");
+    const newRole = prompt("Ingrese el nombre del nuevo rol:")
     if (newRole) {
-      setRoles([...roles, newRole]);
+      setRoles([...roles, newRole])
     }
-  };
+  }
 
   const openEditPopup = (user) => {
-    if (user.role !== 'ADMINISTRADOR') {
-      setSelectedUser(user);
-      setPopupVisible(true);
-      setConfirmDelete(false);
+    if (user.role !== "ADMINISTRADOR") {
+      setSelectedUser(user)
+      setPopupVisible(true)
+      setConfirmDelete(false)
     }
-  };
+  }
 
   const closePopup = () => {
-    setPopupVisible(false);
-    setSelectedUser(null);
-    setConfirmDelete(false);
-  };
+    setPopupVisible(false)
+    setSelectedUser(null)
+    setConfirmDelete(false)
+  }
 
   const handleSave = () => {
     // Aquí podrías agregar una llamada a la API para actualizar el usuario
-    setUsers(users.map(user => user.email === selectedUser.email ? selectedUser : user));
-    closePopup();
-  };
+    setUsers(users.map((user) => (user.email === selectedUser.email ? selectedUser : user)))
+    closePopup()
+  }
 
   const handleDelete = () => {
     if (confirmDelete) {
       // Aquí podrías agregar una llamada a la API para eliminar el usuario
-      setUsers(users.filter(user => user.email !== selectedUser.email));
-      closePopup();
+      setUsers(users.filter((user) => user.email !== selectedUser.email))
+      closePopup()
     } else {
-      setConfirmDelete(true);
+      setConfirmDelete(true)
     }
-  };
+  }
+
+  const toggleLeftSection = () => {
+    const leftSection = document.querySelector(".left-section")
+    leftSection.classList.toggle("show-mobile")
+  }
 
   return (
     <div className="main-container">
       <TopBar onSearch={setSearchQuery} />
       <User_IconButton />
+
+      {isMobile && (
+        <button className="menu-toggle" onClick={toggleLeftSection}>
+          ☰ Menú
+        </button>
+      )}
+
       <div className="content-container">
-        <div className="left-section">
+        <div className={`left-section ${isMobile ? "mobile" : ""}`}>
+          {isMobile && (
+            <button className="close-menu" onClick={toggleLeftSection}>
+              <X size={20} />
+            </button>
+          )}
           <LeftBar title="TODOS LOS USUARIOS" roles={roles} onAddRole={addRole} />
           <PlusButton PageComponent={CrearUsuario} />
         </div>
+
         <div className="users-container">
           <h1 className="search-title">Buscar usuarios</h1>
           <SearchBar onSearch={setSearchQuery} />
-          {filteredUsers.map((user, index) => (
-            <div key={index} className="user-card">
-              <div className="user-info">
-                <div className="user-avatar">
-                  <User size={20} />
+
+          <div className="user-cards-container">
+            {filteredUsers.map((user, index) => (
+              <div key={index} className="user-card">
+                <div className="user-info">
+                  <div className="user-avatar">
+                    <User size={20} />
+                  </div>
+                  <div className="user-details">
+                    <p className="user-name">{user.name}</p>
+                    <span
+                      className={`role-badge ${
+                        user.role === "ADMINISTRADOR"
+                          ? "administrador"
+                          : user.role === "DIRECTOR"
+                            ? "director"
+                            : user.role === "EDITOR"
+                              ? "editor"
+                              : "usuario"
+                      }`}
+                    >
+                      {user.role}
+                    </span>
+                  </div>
                 </div>
-                <div className="user-details">
-                  <p className="user-name">{user.name}</p>
-                  <span className={`role-badge ${user.role === "ADMINISTRADOR" ? "administrador" : 
-                                                user.role === "DIRECTOR" ? "director" : 
-                                                user.role === "EDITOR" ? "editor" : "usuario"}`}>
-                    {user.role}
-                  </span>
+                <div className="user-actions">
+                  <span className="user-email">{user.email}</span>
+                  <button
+                    className="action-button"
+                    onClick={() => openEditPopup(user)}
+                    disabled={user.role === "ADMINISTRADOR"}
+                    title={user.role === "ADMINISTRADOR" ? "No se puede editar un administrador" : "Editar usuario"}
+                  >
+                    <MoreHorizontal size={20} />
+                  </button>
                 </div>
               </div>
-              <div className="user-actions">
-                <span className="user-email">{user.email}</span>
-                <button 
-                  className="action-button" 
-                  onClick={() => openEditPopup(user)}
-                  disabled={user.role === 'ADMINISTRADOR'}
-                  title={user.role === 'ADMINISTRADOR' ? "No se puede editar un administrador" : "Editar usuario"}
-                >
-                  <MoreHorizontal size={20} />
-                </button>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
@@ -137,7 +183,9 @@ const BuscarUsuarios = () => {
                     <AlertTriangle size={48} />
                   </div>
                   <h3>¿Estás seguro?</h3>
-                  <p>Esta acción eliminará permanentemente a <strong>{selectedUser.name}</strong> y no se puede deshacer.</p>
+                  <p>
+                    Esta acción eliminará permanentemente a <strong>{selectedUser.name}</strong> y no se puede deshacer.
+                  </p>
                 </div>
               ) : (
                 <>
@@ -160,7 +208,9 @@ const BuscarUsuarios = () => {
                       className="form-select"
                     >
                       {roles.map((role, index) => (
-                        <option key={index} value={role}>{role}</option>
+                        <option key={index} value={role}>
+                          {role}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -208,7 +258,13 @@ const BuscarUsuarios = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default BuscarUsuarios;
+// Componente CrearUsuario (placeholder)
+const CrearUsuario = () => {
+  return <div>Crear Usuario Component</div>
+}
+
+export default BuscarUsuarios
+
