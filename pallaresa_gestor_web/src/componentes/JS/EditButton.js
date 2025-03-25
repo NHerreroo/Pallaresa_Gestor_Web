@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../Css/EditButton.css";
 import Portal from "./Portal"; 
 
 export const EditButton = ({ PageComponent, nombre, enlace, esCarpeta, rol }) => {
