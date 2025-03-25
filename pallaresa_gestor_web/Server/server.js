@@ -189,16 +189,6 @@ app.get("/docente/folder", async (req, res) => {
 });
 
 
-//select roles
-app.get("/api/roles", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT nombre FROM roles");
-    res.json(result.rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error obteniendo los roles");
-  }
-});
 
 //isert ficheros
 app.post("/api/ficheros", async (req, res) => {
@@ -227,6 +217,49 @@ app.post("/api/ficheros", async (req, res) => {
     res.status(201).json({ message: "Fichero insertado correctamente" });
   } catch (error) {
     console.error("Error al insertar fichero:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+app.put("/api/ficherosEdit", async (req, res) => {
+  const { nombre, nuevoNombre, enlace, carpeta, roles } = req.body;
+
+  // Validar que los campos obligatorios no estén vacíos
+  if (!nombre || !roles || roles.length === 0) {
+    return res.status(400).json({ error: "Nombre y al menos un rol son obligatorios" });
+  }
+
+  try {
+    // Iniciar una transacción
+    await pool.query("BEGIN");
+
+    // Eliminar las relaciones anteriores en la tabla rol_fichero
+    await pool.query(
+      "DELETE FROM rol_fichero WHERE nombre_Fichero = $1",
+      [nombre]
+    );
+
+    // Actualizar el fichero
+    await pool.query(
+      "UPDATE ficheros SET nombre = $1, enlace = $2, carpeta = $3 WHERE nombre = $4",
+      [nuevoNombre || nombre, enlace, carpeta, nombre]
+    );
+
+    // Asignar el fichero a cada rol en la tabla rol_fichero
+    for (const rol of roles) {
+      await pool.query(
+        "INSERT INTO rol_fichero (nombre_Rol, nombre_Fichero) VALUES ($1, $2)",
+        [rol, nuevoNombre || nombre]
+      );
+    }
+
+    // Confirmar la transacción
+    await pool.query("COMMIT");
+
+    res.status(200).json({ message: "Fichero actualizado correctamente" });
+  } catch (error) {
+    // Revertir la transacción en caso de error
+    await pool.query("ROLLBACK");
+    console.error("Error al actualizar fichero:", error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -262,7 +295,43 @@ app.post("/api/roles", async (req, res) => {
 });
 
 
+//select roles
+app.get("/api/roles", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT nombre FROM roles ORDER BY nombre");
+    // Return array of role objects with consistent structure
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error obteniendo los roles");
+  }
+});
 
+app.get("/api/ficherosRoles", async (req, res) => {
+  const { nombre } = req.query;
+  console.log("API /api/ficherosRoles called with nombre:", nombre);
+
+  if (!nombre) {
+    return res.status(400).json({ error: "Nombre del fichero es requerido" });
+  }
+
+  try {
+    const result = await pool.query(
+      "SELECT nombre_Rol FROM rol_fichero WHERE nombre_Fichero = $1",
+      [nombre]
+    );
+
+    console.log("Query Result:", result.rows);
+    
+    // Return array of role names (strings)
+    const roleNames = result.rows.map(row => row.nombre_rol);
+    res.json(roleNames);
+    
+  } catch (err) {
+    console.error("Database Error:", err);
+    res.status(500).json({ error: "Error obteniendo los roles del fichero" });
+  }
+});
 
 app.listen(3001, () => {
     console.log("Servidor escuchando en el puerto 3001");
