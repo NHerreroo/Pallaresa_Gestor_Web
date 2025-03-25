@@ -1,141 +1,160 @@
 /* Estilos para la barra lateral */
 .leftbar {
-    width: 275px;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 0;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(to bottom, #9747ff, #7b6cf6);
-    color: white;
-    overflow: hidden;
-  }
-  
-  /* Encabezado de ROLES */
-  .roles-header {
-    padding: 12px;
-    padding-top: 100px;
-  }
-  
-  .roles-header h2 {
-    font-size: 20px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    margin: 0;
-  }
-  
-  /* Contenedor de búsqueda */
-  .search-container {
-    padding: 0;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 8px;
-    position: relative;
-  }
-  
-  .search-icon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
-    z-index: 1;
-  }
-  
-  .search-icon svg {
-    width: 100%;
-    height: 100%;
-    stroke: #ccc;
-    fill: none;
-  }
-  
-  .search-input {
-    width: 100%;
-    padding: 8px 12px 8px 36px;
-    border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    background-color: rgba(255, 255, 255, 0.1);
-    color: rgba(211, 67, 67, 0);
-    font-size: 14px;
-    box-sizing: border-box;
-  }
-  
-  .search-input::placeholder {
-    color: rgba(90, 90, 90, 0.685);
-  }
-  
-  .search-input:focus {
-    outline: none;
-    background-color: rgba(255, 255, 255, 0.15);
-    color: rgba(255, 255, 255, 0.685);
-  }
-  
-  /* Botón de agregar rol */
-  .add-role-container {
-    padding: 0 12px;
-    margin-bottom: 16px;
-  }
-  
-  .add-role-button {
-    display: flex;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.2);
-    border: none;
-    border-radius: 4px;
-    color: white;
-    padding: 6px 12px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .add-role-button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-  }
-  
-  .plus-icon {
-    width: 16px;
-    height: 16px;
-    margin-right: 6px;
-    stroke: white;
-    fill: none;
-  }
-  
-  /* Lista de roles */
-  .roles-list {
-    flex: 1;
-    overflow-y: auto;
-    padding: 0 12px;
-  }
-  
-  .role-item {
-    padding: 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.15s;
-    margin-bottom: 4px;
-  }
-  
-  .role-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
+  width: 275px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, #9747ff, #7b6cf6);
+  color: white;
+  overflow: hidden;
+}
 
-  .role-item:hover .Eliminar{
-    transition: transform 0.2s ease-in-out;
-    transform: scale(1);
-  }
-  
-  .no-roles {
-    text-align: center;
-    padding: 16px;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 14px;
-  }
+/* Encabezado de ROLES */
+.roles-header {
+  padding: 12px;
+  padding-top: 100px;
+}
 
-  
-  
-  
+.roles-header h2 {
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+/* Contenedor de búsqueda */
+.search-container {
+  padding: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  z-index: 1;
+}
+
+.search-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: #ccc;
+  fill: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px 8px 36px;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(211, 67, 67, 0);
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.search-input::placeholder {
+  color: rgba(90, 90, 90, 0.685);
+}
+
+.search-input:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.685);
+}
+
+/* Botón de agregar rol */
+.add-role-container {
+  padding: 0 12px;
+  margin-bottom: 16px;
+}
+
+.add-role-button {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-role-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.plus-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  stroke: white;
+  fill: none;
+}
+
+/* Lista de roles */
+.roles-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 12px;
+}
+
+.role-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-bottom: 4px;
+}
+
+.role-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.role-name {
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Eliminar {
+  background: white;
+  color: red;
+  border: none;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 15px;
+  transform: scale(0);
+  transition: transform 0.2s ease-in-out;
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+.role-item:hover .Eliminar {
+  transform: scale(1);
+}
+
+.no-roles {
+  text-align: center;
+  padding: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+}

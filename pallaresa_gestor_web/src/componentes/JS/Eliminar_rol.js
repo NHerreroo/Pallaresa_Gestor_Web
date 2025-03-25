@@ -1,5 +1,5 @@
 import React from "react";
-import "../Css/Eliminar_rol.css";
+
      
 export const Eliminar_rol = ({ nombre }) => {
   const handleClick = async () => {
