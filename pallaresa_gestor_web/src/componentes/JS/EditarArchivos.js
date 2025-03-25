@@ -2,49 +2,47 @@ import React, { useState, useEffect } from "react";
 import "../Css/EditarArchivo.css";
 
 export const EditarArchivos = ({ nombre: nombreInicial, enlace: enlaceInicial, esCarpeta: esCarpetaInicial, onClose }) => {
-  const [roles, setRoles] = useState([]);
+  const [allRoles, setAllRoles] = useState([]);
   const [selectedRoles, setSelectedRoles] = useState([]);
-  const [nombre, setNombre] = useState(nombreInicial || "");
+  const [nombre, setNombre] = useState(nombreInicial || ""); // Fixed typo here
   const [enlace, setEnlace] = useState(enlaceInicial || "");
   const [esCarpeta, setEsCarpeta] = useState(esCarpetaInicial || false);
   const [mensaje, setMensaje] = useState("");
-  const [loading, setLoading] = useState(true); // Add a loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch all available roles
-    fetch("http://localhost:3001/api/roles")
-      .then((response) => response.json())
-      .then((data) => setRoles(data))
-      .catch((error) => console.error("Error cargando roles:", error));
+    const fetchData = async () => {
+      try {
+        // Fetch all available roles
+        const rolesRes = await fetch("http://localhost:3001/api/roles");
+        const rolesData = await rolesRes.json();
+        setAllRoles(rolesData);
 
-      fetch(`http://localhost:3001/api/ficherosRoles?nombre=${nombreInicial}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Roles fetched from backend:", data); // Log the fetched roles
-        const roles = data.map(role => role.nombre_Rol);
-        console.log("Selected roles after fetch:", roles); // Log the selected roles
-        setSelectedRoles(roles);
+        // Fetch roles assigned to this file
+        const fileRolesRes = await fetch(
+          `http://localhost:3001/api/ficherosRoles?nombre=${encodeURIComponent(nombreInicial)}`
+        );
+        const fileRolesData = await fileRolesRes.json();
+        
+        console.log("Fetched roles for file:", fileRolesData);
+        setSelectedRoles(fileRolesData);
+      } catch (error) {
+        console.error("Error loading data:", error);
+        setMensaje("Error cargando los datos");
+      } finally {
         setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error cargando roles del fichero:", error);
-        setLoading(false);
-      });
-  }, [nombreInicial]);
-
-  const handleRoleChange = (roleName) => {
-    setSelectedRoles((prevSelectedRoles) => {
-      if (prevSelectedRoles.includes(roleName)) {
-        return prevSelectedRoles.filter((role) => role !== roleName);
-      } else {
-        return [...prevSelectedRoles, roleName];
       }
-    });
+    };
+
+    fetchData();
+  }, [nombreInicial]);
+  
+  const handleRoleChange = (roleName) => {
+    setSelectedRoles(prev => 
+      prev.includes(roleName)
+        ? prev.filter(r => r !== roleName)
+        : [...prev, roleName]
+    );
   };
 
   const handleSubmit = async (e) => {
@@ -73,7 +71,7 @@ export const EditarArchivos = ({ nombre: nombreInicial, enlace: enlaceInicial, e
       const data = await response.json();
       if (response.ok) {
         setMensaje("Fichero actualizado correctamente.");
-        onClose(); // Cerrar el modal después de la actualización
+        setTimeout(onClose, 1500);
       } else {
         setMensaje(`Error: ${data.error}`);
       }
@@ -83,9 +81,8 @@ export const EditarArchivos = ({ nombre: nombreInicial, enlace: enlaceInicial, e
     }
   };
 
-  // Show a loading message while roles are being fetched
   if (loading) {
-    return <div>Cargando roles...</div>;
+    return <div>Cargando datos...</div>;
   }
 
   return (
@@ -99,33 +96,37 @@ export const EditarArchivos = ({ nombre: nombreInicial, enlace: enlaceInicial, e
             className="modal-input"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
+            required
           />
           <input
             type="text"
-            placeholder="Enlace al documento ..."
+            placeholder="Enlace al documento..."
             className="modal-input"
             value={enlace}
             onChange={(e) => setEnlace(e.target.value)}
           />
 
-          <div className="roles-dropdown-container">
-            <p>Selecciona uno o varios roles:</p>
-            <div className="roles-dropdown">
-              {roles.map((role) => (
-                <label key={role.nombre} className="role-checkbox-label">
-                  <input
-                    type="checkbox"
-                    value={role.nombre}
-                    checked={selectedRoles.includes(role.nombre)}
-                    onChange={() => handleRoleChange(role.nombre)}
-                  />
-                  {role.nombre}
-                </label>
-              ))}
+          <div className="roles-section">
+            <p>Roles asignados:</p>
+            <div className="roles-list">
+              {allRoles.map(role => {
+                // Handle both role object (from /api/roles) and role string (from /api/ficherosRoles)
+                const roleName = role.nombre || role;
+                return (
+                  <label key={roleName} className="role-item">
+                    <input
+                      type="checkbox"
+                      checked={selectedRoles.includes(roleName)}
+                      onChange={() => handleRoleChange(roleName)}
+                    />
+                    {roleName}
+                  </label>
+                );
+              })}
             </div>
           </div>
 
-          <label>
+          <label className="folder-checkbox">
             <input
               type="checkbox"
               checked={esCarpeta}
@@ -134,11 +135,11 @@ export const EditarArchivos = ({ nombre: nombreInicial, enlace: enlaceInicial, e
             Es una carpeta
           </label>
 
-          <button type="submit" className="modal-button">
-            Actualizar
+          <button type="submit" className="save-button">
+            Guardar Cambios
           </button>
 
-          {mensaje && <p className="modal-message">{mensaje}</p>}
+          {mensaje && <div className="message">{mensaje}</div>}
         </form>
       </div>
     </div>

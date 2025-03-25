@@ -7,9 +7,10 @@ interface FileCardProps {
   nombre: string;
   enlace: string;
   esCarpeta: boolean;
+  nombre_rol : string;
 }
 
-const FileCard: React.FC<FileCardProps> = ({ nombre, enlace, esCarpeta }) => {
+const FileCard: React.FC<FileCardProps> = ({ nombre, enlace, esCarpeta, nombre_rol }) => {
   return (
     <div className="file-card">
       {/* Pasar los valores del archivo a EditButton */}
@@ -18,6 +19,7 @@ const FileCard: React.FC<FileCardProps> = ({ nombre, enlace, esCarpeta }) => {
         nombre={nombre}
         enlace={enlace}
         esCarpeta={esCarpeta}
+        rol={nombre_rol}
       />
       <div
         className="file-icons-container"

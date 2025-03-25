@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "../Css/EditButton.css";
-import Portal from "./Portal"; // Import the Portal component
+import Portal from "./Portal"; 
 
-export const EditButton = ({ PageComponent, nombre, enlace, esCarpeta }) => {
+export const EditButton = ({ PageComponent, nombre, enlace, esCarpeta, rol }) => {
   const [showOverlay, setShowOverlay] = useState(false);
 
   const closeOverlay = (e) => {

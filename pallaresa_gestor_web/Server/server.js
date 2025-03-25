@@ -189,16 +189,6 @@ app.get("/docente/folder", async (req, res) => {
 });
 
 
-//select roles
-app.get("/api/roles", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT nombre FROM roles");
-    res.json(result.rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error obteniendo los roles");
-  }
-});
 
 //isert ficheros
 app.post("/api/ficheros", async (req, res) => {
@@ -274,8 +264,22 @@ app.put("/api/ficherosEdit", async (req, res) => {
   }
 });
 
+
+//select roles
+app.get("/api/roles", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT nombre FROM roles ORDER BY nombre");
+    // Return array of role objects with consistent structure
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error obteniendo los roles");
+  }
+});
+
 app.get("/api/ficherosRoles", async (req, res) => {
   const { nombre } = req.query;
+  console.log("API /api/ficherosRoles called with nombre:", nombre);
 
   if (!nombre) {
     return res.status(400).json({ error: "Nombre del fichero es requerido" });
@@ -286,9 +290,15 @@ app.get("/api/ficherosRoles", async (req, res) => {
       "SELECT nombre_Rol FROM rol_fichero WHERE nombre_Fichero = $1",
       [nombre]
     );
-    res.json(result.rows);
+
+    console.log("Query Result:", result.rows);
+    
+    // Return array of role names (strings)
+    const roleNames = result.rows.map(row => row.nombre_rol);
+    res.json(roleNames);
+    
   } catch (err) {
-    console.error(err);
+    console.error("Database Error:", err);
     res.status(500).json({ error: "Error obteniendo los roles del fichero" });
   }
 });
