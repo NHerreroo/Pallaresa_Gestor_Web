@@ -264,6 +264,36 @@ app.put("/api/ficherosEdit", async (req, res) => {
   }
 });
 
+//todos los roles
+app.get('/roles', async (req, res) => {
+  try {
+      const result = await pool.query('SELECT nombre FROM roles');
+      res.json(result.rows);
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Error al obtener los roles');
+  }
+});
+
+
+// Ruta para insertar un nuevo rol
+app.post("/api/roles", async (req, res) => {
+  const { nombre } = req.body;
+
+  if (!nombre) {
+    return res.status(400).json({ error: "El nombre del rol es obligatorio" });
+  }
+
+  try {
+    // Insertar el nuevo rol en la base de datos
+    await pool.query("INSERT INTO roles (nombre) VALUES ($1)", [nombre]);
+    res.status(201).json({ message: "Rol insertado correctamente" });
+  } catch (error) {
+    console.error("Error al insertar rol:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 //select roles
 app.get("/api/roles", async (req, res) => {

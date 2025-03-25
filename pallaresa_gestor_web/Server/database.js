@@ -6,7 +6,9 @@ const pool = new Pool({
 
     //host: "192.168.1.47", //Joel
     //host: "192.168.0.47", //Nacho
-    host:"192.168.1.144", //Ben
+    //host:"192.168.1.144", //Ben
+    //host: "192.168.1.51", //Luis
+
     port: 5432,
     database: "pallaresa"
 });
