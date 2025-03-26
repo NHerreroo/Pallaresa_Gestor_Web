@@ -23,6 +23,7 @@
   
   /* Input de búsqueda */
   .search-input {
+    color: black;
     width: 100%;
     padding: 8px 16px 8px 40px; /* Espacio para el icono */
     background-color: #c7cacf;

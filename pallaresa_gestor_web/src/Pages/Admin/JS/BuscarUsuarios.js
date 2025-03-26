@@ -1,22 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import TopBar from '../../../componentes/JS/TopBar.js';
-import LeftBar from '../../../componentes/JS/LeftBar.js';
-import PlusButton from '../../../componentes/JS/PlusButton.js';
-import SearchBar from '../../../componentes/JS/search-bar.js'; 
-import '../Css/BuscarUsuarios.css';
-import '../../../componentes/Css/LeftBar.css';
-import CrearUsuario from './CrearUsuario.js';
-import User_IconButton from '../../../componentes/JS/User_Icon.js';
-import { Edit, X, Save, MoreHorizontal, User, Trash2, AlertTriangle } from 'lucide-react';
+"use client"
+
+import { useState, useEffect } from "react"
+import axios from "axios"
+import TopBar from "../../../componentes/JS/TopBar.js"
+import LeftBar from "../../../componentes/JS/LeftBar.js"
+import PlusButton from "../../../componentes/JS/PlusButton.js"
+import SearchBar from "../../../componentes/JS/search-bar.js"
+import User_IconButton from "../../../componentes/JS/User_Icon.js"
+import { X, Save, MoreHorizontal, User, Trash2, AlertTriangle } from "lucide-react"
+import "../Css/BuscarUsuarios.css"
+import "../../../componentes/Css/LeftBar.css"
 
 const BuscarUsuarios = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [users, setUsers] = useState([]);
-  const [roles, setRoles] = useState(["ROL 1", "ROL 2", "ROL 3"]);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [popupVisible, setPopupVisible] = useState(false);
-  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("")
+  const [users, setUsers] = useState([])
+  const [roles, setRoles] = useState(["ROL 1", "ROL 2", "ROL 3"])
+  const [selectedUser, setSelectedUser] = useState(null)
+  const [popupVisible, setPopupVisible] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Detectar si es dispositivo móvil
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkIfMobile()
+    window.addEventListener("resize", checkIfMobile)
+
+    return () => {
+      window.removeEventListener("resize", checkIfMobile)
+    }
+  }, [])
 
   useEffect(() => {
     const fetchUsuarios = async () => {
@@ -40,7 +56,7 @@ const BuscarUsuarios = () => {
   
         setUsers(usuariosAgrupados);
       } catch (error) {
-        console.error('Error al obtener los usuarios', error);
+        console.error("Error al obtener los usuarios", error)
       }
     };
     fetchUsuarios();
@@ -68,11 +84,11 @@ const BuscarUsuarios = () => {
   
 
   const addRole = () => {
-    const newRole = prompt("Ingrese el nombre del nuevo rol:");
+    const newRole = prompt("Ingrese el nombre del nuevo rol:")
     if (newRole) {
-      setRoles([...roles, newRole]);
+      setRoles([...roles, newRole])
     }
-  };
+  }
 
   const openEditPopup = (user) => {
     if (user.role !== 'ADMINISTRADOR') {
@@ -83,13 +99,13 @@ const BuscarUsuarios = () => {
       setPopupVisible(true);
       setConfirmDelete(false);
     }
-  };
+  }
 
   const closePopup = () => {
-    setPopupVisible(false);
-    setSelectedUser(null);
-    setConfirmDelete(false);
-  };
+    setPopupVisible(false)
+    setSelectedUser(null)
+    setConfirmDelete(false)
+  }
 
   const handleSave = async () => {
     try {
@@ -136,11 +152,24 @@ const handleRoleChange = (roleName) => {
     <div className="main-container">
       <TopBar onSearch={setSearchQuery} />
       <User_IconButton />
+
+      {isMobile && (
+        <button className="menu-toggle" onClick={toggleLeftSection}>
+          ☰ Menú
+        </button>
+      )}
+
       <div className="content-container">
-        <div className="left-section">
+        <div className={`left-section ${isMobile ? "mobile" : ""}`}>
+          {isMobile && (
+            <button className="close-menu" onClick={toggleLeftSection}>
+              <X size={20} />
+            </button>
+          )}
           <LeftBar title="TODOS LOS USUARIOS" roles={roles} onAddRole={addRole} />
           <PlusButton PageComponent={CrearUsuario} />
         </div>
+
         <div className="users-container">
           <h1 className="search-title">Buscar usuarios</h1>
           <SearchBar onSearch={setSearchQuery} />
@@ -194,7 +223,9 @@ const handleRoleChange = (roleName) => {
                     <AlertTriangle size={48} />
                   </div>
                   <h3>¿Estás seguro?</h3>
-                  <p>Esta acción eliminará permanentemente a <strong>{selectedUser.name}</strong> y no se puede deshacer.</p>
+                  <p>
+                    Esta acción eliminará permanentemente a <strong>{selectedUser.name}</strong> y no se puede deshacer.
+                  </p>
                 </div>
               ) : (
                 <>
@@ -268,7 +299,13 @@ const handleRoleChange = (roleName) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default BuscarUsuarios;
+// Componente CrearUsuario (placeholder)
+const CrearUsuario = () => {
+  return <div>Crear Usuario Component</div>
+}
+
+export default BuscarUsuarios
+
