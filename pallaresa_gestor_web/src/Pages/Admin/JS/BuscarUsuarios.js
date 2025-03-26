@@ -115,6 +115,7 @@ const BuscarUsuarios = () => {
                   <MoreHorizontal size={20} />
                 </button>
               </div>
+              
             </div>
           ))}
         </div>
