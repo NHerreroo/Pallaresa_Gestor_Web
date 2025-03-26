@@ -4,7 +4,6 @@
   flex-direction: column;
   height: 100vh; /* Ocupa toda la altura de la pantalla */
   overflow: auto;
-  position: relative;
 }
 
 /* Contenedor del contenido (LeftBar, PlusButton y users-container) */
@@ -12,35 +11,6 @@
   display: flex;
   flex: 1; /* Ocupa el espacio restante */
   margin-top: 60px;
-}
-
-/* Botón de menú para móviles */
-.menu-toggle {
-  display: none;
-  position: fixed;
-  top: 70px;
-  left: 10px;
-  z-index: 100;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-/* Botón para cerrar menú en móviles */
-.close-menu {
-  display: none;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  color: #333;
-  cursor: pointer;
-  z-index: 101;
 }
 
 /* Sección izquierda (LeftBar y PlusButton) */
@@ -52,8 +22,6 @@
   flex-direction: column;
   align-items: center; /* Centra los elementos */
   overflow-y: auto;
-  position: relative;
-  transition: transform 0.3s ease;
 }
 
 /* PlusButton */
@@ -80,13 +48,6 @@
   flex: 1; /* Ocupa el espacio restante */
   padding: 20px;
   overflow-y: auto; /* Scroll si el contenido es muy largo */
-}
-
-/* Contenedor de tarjetas de usuario */
-.user-cards-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
 /* Estilos adicionales para los elementos existentes */
@@ -296,8 +257,8 @@
   margin-top: 5px;
 }
 
-.form-input {
-  width: calc(100% - 20px);
+.form-input{
+  width: calc(100% - 20px); 
   padding: 10px;
   border: 1px solid #ced4da;
   border-radius: 4px;
@@ -305,8 +266,9 @@
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+
 .form-select {
-  width: 100%;
+  width: 100%; 
   padding: 10px;
   border: 1px solid #ced4da;
   border-radius: 4px;
@@ -418,83 +380,26 @@
   color: #6c757d;
 }
 
-/* Media queries para hacer el diseño responsive */
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
-
-  .left-section {
-    position: fixed;
-    left: -250px;
-    top: 0;
-    height: 100%;
-    z-index: 1000;
-    background-color: white;
-    transition: left 0.3s ease;
-  }
-
-  .left-section.show-mobile {
-    left: 0;
-  }
-
-  .close-menu {
-    display: block;
-  }
-
-  .content-container {
-    flex-direction: column;
-  }
-
-  .user-card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .user-actions {
-    width: 100%;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-
-  .modal-content {
-    width: 95%;
-    max-width: 95%;
-  }
-
-  .modal-footer {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .right-buttons {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .delete-button {
-    width: 100%;
-    justify-content: center;
-  }
+.roles-container {
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 5px;
 }
 
-@media (max-width: 480px) {
-  .user-email {
-    display: block;
-    width: 100%;
-    margin-bottom: 5px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+.role-item {
+  display: block;
+  padding: 2px;
+}
 
-  .role-badge {
-    min-width: auto;
-    width: 100%;
-    max-width: 150px;
-  }
 
-  .form-input,
-  .form-select {
-    width: 100%;
-  }
+.role-badge {
+  background-color: rgb(14, 173, 14);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 10px;
 }
