@@ -3,26 +3,28 @@ import "../Css/FileCard.css";
 import EditarArchivos from "./EditarArchivos";
 import EditButton from "./EditButton";
 import RemoveButton from "./Rol_remove_button";
-
 interface FileCardProps {
   nombre: string;
   enlace: string;
   esCarpeta: boolean;
-  nombre_rol : string;
+  nombre_rol: string;
+  isAdminView?: boolean; // New optional prop
 }
 
-const FileCard: React.FC<FileCardProps> = ({ nombre, enlace, esCarpeta, nombre_rol }) => {
+const FileCard: React.FC<FileCardProps> = ({ nombre, enlace, esCarpeta, nombre_rol, isAdminView }) => {
   return (
     <div className="file-card">
       <div className="file-actions-container">
-        <EditButton
-          PageComponent={EditarArchivos}
-          nombre={nombre}
-          enlace={enlace}
-          esCarpeta={esCarpeta}
-          rol={nombre_rol}
-        />
-        <RemoveButton nombre={nombre} />
+        {isAdminView && ( 
+          <EditButton
+            PageComponent={EditarArchivos}
+            nombre={nombre}
+            enlace={enlace}
+            esCarpeta={esCarpeta}
+            rol={nombre_rol}
+          />
+        ) && ( <RemoveButton nombre={nombre} />)}
+       
       </div>
       
       <div className="file-content">

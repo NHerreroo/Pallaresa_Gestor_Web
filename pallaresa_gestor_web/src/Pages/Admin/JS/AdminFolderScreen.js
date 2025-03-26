@@ -53,6 +53,7 @@ const AdminFolderScreen = () => {
                 nombre={fichero.nombre}
                 enlace={fichero.enlace}
                 esCarpeta={fichero.carpeta}
+                isAdminView={true}
               />
             ))}
           </div>
