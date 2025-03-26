@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import axios from "axios"
-import LeftBar from "../../../componentes/JS/LeftBar.js"
+import LeftBarDocente from "../../../componentes/JS/LeftBarDocente.js"
 import { TopBarDocente } from "../../../componentes/JS/TopBarDocente.js"
 import { User_IconButton } from "../../../componentes/JS/User_Icon.js"
 import FileCard from "../../../componentes/JS/FileCard.tsx"
@@ -39,7 +39,7 @@ const DocenteFolderScreen = () => {
   
   return (
     <div className="docente-folder">
-      <LeftBar title="TODOS LOS USUARIOS" roles={roles} />
+      <LeftBarDocente title="TODOS LOS USUARIOS" roles={roles} />
       <div className="docente-folder-main">
         <TopBarDocente />
         <div className="docente-folder-content">

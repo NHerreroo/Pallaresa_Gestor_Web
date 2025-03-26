@@ -432,6 +432,47 @@ app.delete("/api/rolesRemove", async (req, res) => {
   }
 });
 
+app.get('/api/user-roles', async (req, res) => {
+  const { correo } = req.query;
+  
+  if (!correo) {
+    console.warn('No email provided in request');
+    return res.json([{ nombre: 'DOCENTE' }]); // Default role
+  }
+
+  try {
+    // Query to get all roles for the user
+    const rolesQuery = `
+      SELECT r.nombre 
+      FROM persona_rol pr
+      JOIN roles r ON pr.nombre_rol = r.nombre
+      WHERE pr.correo_persona = $1
+      ORDER BY r.nombre
+    `;
+    
+    const rolesResult = await pool.query(rolesQuery, [correo]);
+
+    // If user has no specific roles, return default DOCENTE
+    if (rolesResult.rows.length === 0) {
+      console.log(`No specific roles found for ${correo}, using default DOCENTE`);
+      return res.json([{ nombre: 'DOCENTE' }]);
+    }
+
+    console.log(`Roles found for ${correo}:`, rolesResult.rows);
+    res.json(rolesResult.rows);
+    
+  } catch (error) {
+    console.error('Database error fetching roles:', {
+      error: error.message,
+      query: error.query,
+      parameters: error.parameters
+    });
+    
+    // Fallback to default role on error
+    res.json([{ nombre: 'DOCENTE' }]);
+  }
+});
+
 app.listen(3001, () => {
     console.log("Servidor escuchando en el puerto 3001");
 });
