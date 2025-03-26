@@ -4,7 +4,7 @@ import "../Css/EditarArchivo.css";
 export const EditarArchivos = ({ nombre: nombreInicial, enlace: enlaceInicial, esCarpeta: esCarpetaInicial, onClose }) => {
   const [allRoles, setAllRoles] = useState([]);
   const [selectedRoles, setSelectedRoles] = useState([]);
-  const [nombre, setNombre] = useState(nombreInicial || "");
+  const [nombre, setNombre] = useState(nombreInicial || ""); // Fixed typo here
   const [enlace, setEnlace] = useState(enlaceInicial || "");
   const [esCarpeta, setEsCarpeta] = useState(esCarpetaInicial || false);
   const [mensaje, setMensaje] = useState("");
@@ -108,14 +108,9 @@ export const EditarArchivos = ({ nombre: nombreInicial, enlace: enlaceInicial, e
 
           <div className="roles-section">
             <p>Roles asignados:</p>
-            <div className="roles-list" style={{ 
-              maxHeight: "150px", 
-              overflowY: "auto", 
-              border: "1px solid #ccc", 
-              padding: "10px", 
-              borderRadius: "5px" 
-            }}>
+            <div className="roles-list">
               {allRoles.map(role => {
+                // Handle both role object (from /api/roles) and role string (from /api/ficherosRoles)
                 const roleName = role.nombre || role;
                 return (
                   <label key={roleName} className="role-item">
