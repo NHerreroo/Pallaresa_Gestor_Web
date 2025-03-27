@@ -20,11 +20,9 @@ export const PlusButton = ({ PageComponent }) => {
 
       {showOverlay && (
         <div className="overlay" onClick={closeOverlay}>
-          <div className="modal-content">
             <button className="close-btn" onClick={() => setShowOverlay(false)}>Close</button>
             <PageComponent />
           </div>
-        </div>
       )}
     </>
   );
