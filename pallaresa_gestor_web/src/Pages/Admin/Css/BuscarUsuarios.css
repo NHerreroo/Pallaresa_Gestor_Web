@@ -379,3 +379,27 @@
   margin: 0;
   color: #6c757d;
 }
+
+.roles-container {
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.role-item {
+  display: block;
+  padding: 2px;
+}
+
+
+.role-badge {
+  background-color: rgb(14, 173, 14);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 10px;
+}
