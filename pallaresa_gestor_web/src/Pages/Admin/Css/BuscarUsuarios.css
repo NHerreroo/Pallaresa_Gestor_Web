@@ -53,6 +53,7 @@
 /* Estilos adicionales para los elementos existentes */
 .search-title {
   margin-bottom: 20px;
+  z-index: 100;
 }
 
 .user-card {
@@ -163,13 +164,13 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vh;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 10000;
   animation: fadeIn 0.2s ease-out;
 }
 
@@ -189,6 +190,8 @@
   max-width: 90%;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   animation: slideIn 0.3s ease-out;
+  z-index: 11000;
+  position: absolute;
   overflow: hidden;
 }
 
