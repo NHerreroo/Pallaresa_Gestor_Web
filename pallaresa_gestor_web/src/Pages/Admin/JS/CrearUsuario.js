@@ -6,13 +6,12 @@ const CrearUsuario = () => {
     const [correo, setCorreo] = useState("");
     const [nombre, setNombre] = useState("");
     const [contraseña, setContraseña] = useState("");
-    const [rol, setRol] = useState("");
+    const [rolesSeleccionados, setRolesSeleccionados] = useState([]);
     const [mensaje, setMensaje] = useState("");
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [roles, setRoles] = useState([]); // Nueva lista de roles
+    const [roles, setRoles] = useState([]);
 
     useEffect(() => {
-        // Cargar roles desde el backend
         const fetchRoles = async () => {
             try {
                 const response = await axios.get("http://localhost:3001/api/roles");
@@ -33,26 +32,48 @@ const CrearUsuario = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:3001/api/register", {
+            // 1. Registrar el usuario (sin roles)
+            const hashedPassword = await hashPassword(contraseña);
+            await axios.post("http://localhost:3001/api/register", {
                 correo,
                 nombre,
-                contraseña,
-                rol,
+                contraseña: hashedPassword,
+                rol: rolesSeleccionados[0] // Enviamos el primer rol por compatibilidad
             });
 
-            setMensaje(response.data.message);
+            // 2. Si hay más de un rol seleccionado, asignar los adicionales
+            if (rolesSeleccionados.length > 1) {
+                await axios.put(`http://localhost:3001/api/usuarios/${correo}`, {
+                    nombre,
+                    roles: rolesSeleccionados
+                });
+            }
+
+            setMensaje("Usuario creado correctamente con los roles asignados");
+            // Limpiar el formulario
             setCorreo("");
             setNombre("");
             setContraseña("");
-            setRol("");
+            setRolesSeleccionados([]);
         } catch (error) {
-            setMensaje(error.response?.data?.message || "Error al añadir el usuario");
+            setMensaje(error.response?.data?.error || "Error al crear el usuario");
         }
     };
 
-    const handleRolSelection = (selectedRol) => {
-        setRol(selectedRol);
-        setIsDropdownOpen(false); // Cerrar el dropdown después de seleccionar un rol
+    // Función para simular el hashing de contraseña en el frontend (debería hacerse en el backend)
+    const hashPassword = async (password) => {
+        // Nota: En producción, esto debería hacerse exclusivamente en el backend
+        return password; // El backend ya tiene bcrypt para hashear
+    };
+
+    const handleRolChange = (rolNombre) => {
+        setRolesSeleccionados(prev => {
+            if (prev.includes(rolNombre)) {
+                return prev.filter(r => r !== rolNombre);
+            } else {
+                return [...prev, rolNombre];
+            }
+        });
     };
 
     return (
@@ -83,10 +104,15 @@ const CrearUsuario = () => {
                         value={contraseña}
                         onChange={(e) => setContraseña(e.target.value)}
                         required
+                        minLength="6"
                     />
                     <div className="dropdown-container">
                         <div className="dropdown-header" onClick={toggleDropdown}>
-                            <span>{rol || "ROL"}</span>
+                            <span>
+                                {rolesSeleccionados.length > 0 
+                                    ? rolesSeleccionados.join(", ") 
+                                    : "Seleccione roles"}
+                            </span>
                             <span className={`dropdown-arrow ${isDropdownOpen ? "open" : ""}`}>
                                 ▶
                             </span>
@@ -94,16 +120,17 @@ const CrearUsuario = () => {
                         {isDropdownOpen && (
                             <div className="dropdown-options">
                                 {roles.map((rolOption, index) => (
-                                    <label key={index} className="dropdown-option">
+                                    <div key={index} className="dropdown-option">
                                         <input
-                                            type="radio"
-                                            name="rol"
-                                            value={rolOption.nombre}
-                                            checked={rol === rolOption.nombre}
-                                            onChange={() => handleRolSelection(rolOption.nombre)}
+                                            type="checkbox"
+                                            id={`rol-${index}`}
+                                            checked={rolesSeleccionados.includes(rolOption.nombre)}
+                                            onChange={() => handleRolChange(rolOption.nombre)}
                                         />
-                                        {rolOption.nombre}
-                                    </label>
+                                        <label htmlFor={`rol-${index}`}>
+                                            {rolOption.nombre}
+                                        </label>
+                                    </div>
                                 ))}
                             </div>
                         )}
@@ -112,7 +139,7 @@ const CrearUsuario = () => {
                         Guardar
                     </button>
                 </form>
-                {mensaje && <p>{mensaje}</p>}
+                {mensaje && <p className="mensaje">{mensaje}</p>}
             </div>
         </div>
     );

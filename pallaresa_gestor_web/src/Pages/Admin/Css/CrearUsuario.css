@@ -111,3 +111,46 @@
     background-color: #4834d4;
   }
   
+
+  /* Estilos existentes... */
+
+.dropdown-options {
+  margin-top: 10px;
+  background-color: #f4f4f4;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dropdown-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.dropdown-option:hover {
+  background-color: #e0e0e0;
+}
+
+.dropdown-option input {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.dropdown-option label {
+  cursor: pointer;
+  flex-grow: 1;
+}
+
+.mensaje {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  color: #333;
+}
