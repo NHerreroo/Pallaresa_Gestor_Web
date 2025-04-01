@@ -69,7 +69,6 @@ const LeftBar = () => {
       {isModalOpen && (
         <div className="overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="close-button" onClick={() => setIsModalOpen(false)}>✖</button>
             <ImplementarRol onClose={() => setIsModalOpen(false)} />
           </div>
         </div>
