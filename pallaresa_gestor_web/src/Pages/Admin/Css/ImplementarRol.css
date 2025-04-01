@@ -1,5 +1,5 @@
 /* Fondo */
-.overlay {
+.ir-overlay {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -9,26 +9,34 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
 }
 
 /* Modal Box */
-.modal-container-overlay {
+.ir-modal-container-overlay {
   background: none;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
-  animation: fadeIn 0.3s ease-in-out;
+  animation: ir-fadeIn 0.3s ease-in-out;
+  z-index: 100000;
+}
+
+.ir-modal-box {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Title */
-.modal-title {
+.ir-modal-title {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 20px;
+  color: black;
 }
 
 /* Input Fields */
-.modal-input {
+.ir-modal-input {
   width: 90%;
   padding: 10px;
   margin-bottom: 15px;
@@ -38,10 +46,10 @@
 }
 
 /* Button */
-.modal-button {
+.ir-modal-button {
   width: 97%;
   padding: 10px;
-  margin-bottom: 10px ;
+  margin-bottom: 10px;
   background-color: #6c5ce7;
   color: white;
   font-size: 14px;
@@ -52,12 +60,12 @@
   transition: background-color 0.3s ease;
 }
 
-.modal-button:hover {
+.ir-modal-button:hover {
   background-color: #4834d4;
 }
 
 /* Close Button */
-.close-btn {
+.ir-close-btn {
   background: red;
   color: white;
   border: none;
@@ -70,23 +78,24 @@
   right: 15px;
 }
 
-.close-btn:hover {
+.ir-close-btn:hover {
   background: darkred;
 }
 
-.roles-checkbox-container {
+.ir-roles-checkbox-container {
   margin: 10px 0;
 }
-.role-checkbox-label {
+
+.ir-role-checkbox-label {
   display: block;
   margin: 5px 0;
 }
 
-.roles-dropdown-container {
+.ir-roles-dropdown-container {
   margin: 10px 0;
 }
 
-.roles-dropdown {
+.ir-roles-dropdown {
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 10px;
@@ -95,18 +104,18 @@
   background-color: #f9f9f9;
 }
 
-.role-checkbox-label {
+.ir-role-checkbox-label {
   display: block;
   margin: 5px 0;
   font-size: 16px;
 }
 
-.role-checkbox-label input {
+.ir-role-checkbox-label input {
   margin-right: 10px;
 }
 
 /* Fade-In Animation */
-@keyframes fadeIn {
+@keyframes ir-fadeIn {
   from {
     opacity: 0;
     transform: scale(0.95);
@@ -117,6 +126,27 @@
   }
 }
 
+.ir-modal-message {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  opacity: 0;
+  animation: ir-fadeIn 0.5s ease-in-out forwards;
+}
+
+.ir-modal-message.ir-success {
+  background-color: #d4edda; /* Fondo verde claro */
+  color: #155724; /* Texto verde oscuro */
+  border: 1px solid #c3e6cb;
+}
+
+.ir-modal-message.ir-error {
+  background-color: #f8d7da; /* Fondo rojo claro */
+  color: #721c24; /* Texto rojo oscuro */
+  border: 1px solid #f5c6cb;
+}
 
 .modal-message {
     margin-top: 10px;
@@ -126,6 +156,7 @@
     font-weight: bold;
     opacity: 0;
     animation: fadeIn 0.5s ease-in-out forwards;
+    z-index: 1000;
   }
   
   .modal-message.success {

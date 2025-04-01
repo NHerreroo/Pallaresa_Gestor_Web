@@ -1,6 +1,6 @@
 /* Contenedor principal de la barra de búsqueda */
 .search-form {
-    position: relative;
+    /* position: relative; */
     width: 100%;
     max-width: 768px;
     margin: 0 auto;

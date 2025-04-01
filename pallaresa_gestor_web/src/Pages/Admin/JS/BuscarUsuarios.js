@@ -134,9 +134,10 @@ const handleRoleChange = (roleName) => {
 
   return (
     <div className="main-container">
-      <TopBar onSearch={setSearchQuery} />
+   
       <User_IconButton />
       <div className="content-container">
+      <TopBar onSearch={setSearchQuery} />
         <div className="left-section">
           <LeftBar title="TODOS LOS USUARIOS" roles={roles} onAddRole={addRole} />
           <PlusButton PageComponent={CrearUsuario} />
