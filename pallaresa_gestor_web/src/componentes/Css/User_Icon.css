@@ -5,7 +5,7 @@
     display: flex;           
     align-items: flex-start; 
     justify-content: flex-start; 
-    z-index: 10;
+    z-index: 10000;
 }
 
 .Icono img {
