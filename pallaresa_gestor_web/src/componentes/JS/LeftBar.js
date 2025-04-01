@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import axios from "axios"
 import "../Css/LeftBar.css";
@@ -84,7 +82,7 @@ const LeftBar = () => {
         {filteredRoles.length > 0 ? (
           filteredRoles.map((role, index) => (
             <div key={role.id || index} className="role-item">
-              {role.nombre}
+              <span className="role-name">{role.nombre}</span>
               <Eliminar_rol nombre={role.nombre} />
             </div>
           ))
